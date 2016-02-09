@@ -50,11 +50,20 @@ angular.module('bahquiz', ['ionic', 'bahquiz.controllers', 'bahquiz.services'])
     }
   })
 
-  .state('tab.quiz', {
-      url: '/quiz',
+  .state('tab.modules', {
+      url: '/modules',
       views: {
-        'tab-quiz': {
-          templateUrl: 'templates/tab-quiz.html',
+        'tab-modules': {
+          templateUrl: 'templates/tab-modules.html',
+          controller: 'ModulesCtrl'
+        }
+      }
+    })
+    .state('tab.quiz', {
+      url: '/modules/quiz', //later change to quiz:id
+      views: {
+        'tab-modules': {
+          templateUrl: 'templates/modules-quiz.html',
           controller: 'QuizCtrl'
         }
       }
