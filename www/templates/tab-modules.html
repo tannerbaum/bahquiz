@@ -1,28 +1,9 @@
 <ion-view view-title="Modules">
   <ion-content class="padding">
     <h4>Modules</h2>
-    <br>
-    
-    <ion-list>
-        <ion-item href="#/tab/modules/quiz">
-            <div class="list card">
-                <div class="item item-avatar">
-                <img src="../img/ionic.png">    
-                <h2>Vessels 101</h2>
-                <p>4 Quizes</p>
-            </div>
-
-            <div class="item item-body">
-                <img class="full-image" src="../img/vessel.jpg">
-                <p>
-                In this less, you will learn all kinds of interesting things like how to swab the poop deck,
-                avoid catching scurvey, and what to do when you get that tingly feeling for your fellow
-                patriots. 
-                </p>
-            </div>
-            <!--Incorporate completion here-->
-            </div>
-        </ion-item>
-    </ion-list>
+    <br> <!-- Replace this with padding later -->
+    <div ng-repeat="module in modules">
+        <module info="module"></module>
+    </div>                  
   </ion-content>
 </ion-view>
