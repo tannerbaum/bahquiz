@@ -9,7 +9,7 @@ angular.module('bahquiz.controllers', [])
         title: 'Vessels 101',
         quiz_num: '4 quizzes',
         mod_image: '../img/vessel.jpg',
-        mod_body: 'In this lesspn, you will learn all kinds of interesting things like how to swab the poop deck, avoid catching scurvey  and what to do when you get that tingly feeling for your fellow patriots.'
+        mod_body: 'In this lesson, you will learn all kinds of interesting things like how to swab the poop deck, avoid catching scurvey  and what to do when you get that tingly feeling for your fellow patriots.'
     },
     {
         mod_avatar: '../img/ionic.png',
@@ -20,6 +20,7 @@ angular.module('bahquiz.controllers', [])
     }];
 }])
 
-.controller('QuizCtrl', function($scope) {})
+.controller('QuizCtrl', function($scope) {
+})
 
 .controller('SettingsCtrl', function($scope) {})

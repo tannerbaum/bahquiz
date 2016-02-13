@@ -1,0 +1,23 @@
+    <div class="intro" ng-show="!inProgress">
+        <h3> Youtube Video Here </h3>
+        <button id="startQuiz" ng-click="start()">Ready?</button>
+    </div>
+    <div class="quiz-view" ng-show="inProgress">
+        <!--<quiz info="placeholder"></quiz>-->
+        <div ng-show="!finished">
+            <h4> {{ question }} </h4> 
+            <div class="list list-inset">
+                <a class="item" href="#" ng-repeat="option in options" name= "answer" value="{{ option }}">
+                    {{ option }}
+                </a>
+            </div>
+            <button ng-click="checkAnswer(); nextQuestion()">Submit</button>
+        </div>
+    </div>
+        
+    <div ng-show="finished">
+        <h3> Quiz is Over </h3>
+        <!--TODO: Display Score-->
+        <!--TODO: Button here that resets you to module page? -->
+        
+    </div> 
