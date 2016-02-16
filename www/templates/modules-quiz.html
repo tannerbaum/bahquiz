@@ -2,8 +2,28 @@
 <!--I imagine that to make it so clicking on a module brings up different quizzes, this needs to be in the directive-->
 
 <ion-view view-title="Quiz"> 
-  <ion-content class="padding">
-      <quiz></quiz>
-<!--Check for Missing Divs-->
+  <ion-content class="padding" ng-controller="QuizCtrl">
+    <div class="intro" ng-show="!inProgress">
+        <h3> Youtube Video Here </h3>
+        <button id="startQuiz" ng-click="start()">Ready?</button>
+    </div>
+    <div class="quiz-view" ng-show="inProgress">
+        <div ng-show="!finished">
+            <h4> {{ question }} </h4> 
+            <ion-list ng-init="selected = -1">
+                <ion-item ng-repeat="option in options" ng-click="choosAns()"  data="{{ option }}"> 
+                    Hello, {{item}}!
+                </ion-item>
+            </ion-list>
+            <button ng-click="checkAnswer($element.target)">Submit</button>
+        </div>
+    </div>
+        
+    <div ng-show="finished">
+        <h3> Quiz is Over </h3>
+        {{ score }}
+        <!--TODO: Button here that resets you to module page? -->
+        <!--ng-class="{active:($parent.selected == $index)}"-->
+    </div> 
 </ion-content>
 </ion-view>

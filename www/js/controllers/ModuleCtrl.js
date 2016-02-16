@@ -1,8 +1,4 @@
-angular.module('bahquiz.controllers', [])
-
-.controller('ProfileCtrl', function($scope) {})
-
-.controller('ModulesCtrl', ['$scope', function($scope) {
+app.controller('ModulesCtrl', ['$scope', function($scope){
     $scope.modules = [
     {
         mod_avatar: '../img/ionic.png',
@@ -18,9 +14,4 @@ angular.module('bahquiz.controllers', [])
         mod_image: '../img/astley.jpg',
         mod_body: 'We are no strangers to love. You know the rules, and so do I. So take this quiz'
     }];
-}])
-
-.controller('QuizCtrl', function($scope) {
-})
-
-.controller('SettingsCtrl', function($scope) {})
+}]);

@@ -1,6 +1,4 @@
-angular.module('bahquiz.services', [])
-
-.factory('quizFactory', function() { //Later to be replaced by service with http requests
+app.service('questionsService', function() { //Later to be replaced by service with http requests
     var questions = [
         {
             question: "True or False? Rick would never give you up, and would never let you down",
@@ -19,13 +17,15 @@ angular.module('bahquiz.services', [])
         }
     ];
     
-    return{
-        getQuestion: function(id) {
-            if(id < questions.length) {
-                return questions[id];
-            } else {
-                return false;
-            }
+    this.list = function (){
+        return questions;
+    }
+    
+    this.getQuestion = function(id){
+        if(id < questions.length){
+            return questions[id];
+        } else {
+            return false;
         }
-    };
+    }
 })
