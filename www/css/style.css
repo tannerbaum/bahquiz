@@ -1,3 +1,8 @@
 .card > a {
     text-decoration: none;
 }
+
+.active{
+    border-color: #0a9dc7;
+    background-color: #11c1f3;
+}

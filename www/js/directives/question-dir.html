@@ -6,18 +6,20 @@
         <!--<quiz info="placeholder"></quiz>-->
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
-            <div class="list list-inset">
-                <a class="item" href="#" ng-repeat="option in options" name= "answer" value="{{ option }}">
-                    {{ option }}
-                </a>
+            <div class="list list-inset" ng-init="selected = -1">
+                <ul>
+                    <li class="item" ng-click="$parent.selected = $index" ng-class="{active:($parent.selected == $index)}" ng-repeat="option in options" name= "answer" value="{{ option }}">
+                        {{ option }}
+                    </li>
+                </ul>
             </div>
-            <button ng-click="checkAnswer(); nextQuestion()">Submit</button>
+            <button ng-click="nextQuestion()">Submit</button>
         </div>
     </div>
         
     <div ng-show="finished">
         <h3> Quiz is Over </h3>
-        <!--TODO: Display Score-->
+        {{ score }}
         <!--TODO: Button here that resets you to module page? -->
         
     </div> 

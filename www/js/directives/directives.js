@@ -10,7 +10,7 @@ angular.module('bahquiz.directives', ['bahquiz.services'])
     };
 })
   
-.directive('quiz', function(){
+.directive('quiz',['quizFactory', function(quizFactory){
     return {
     restrict: 'E',
     scope: {
@@ -41,23 +41,31 @@ angular.module('bahquiz.directives', ['bahquiz.services'])
             }
         };
         
+        scope.click = function(){
+            scope.active = true;
+            //TODO Set others to false? 
+        }
+        
         scope.checkAnswer = function() {
             // Don't Understand this line
-            if(!$('a[name=answer]:active').length) return;
+            // if(!$('li[name=answer]:active').length) return;
  
-            var ans = $('a[name=answer]:active').val();
- 
+            var ans = $('li[name=answer]:active').val();
+            console.log(ans);
             if(ans == scope.options[scope.answer]) {
                 scope.score++;
                 scope.correctAns = true;
+                console.log("correct");
             } else {
                 scope.correctAns = false;
+                console.log("incorrect");
             }
 
             scope.answerMode = false;
         };
         
         scope.nextQuestion = function() {
+            scope.checkAnswer();
             scope.id++;
             scope.getQuestion();
         }
@@ -66,4 +74,4 @@ angular.module('bahquiz.directives', ['bahquiz.services'])
         
     }
     };
-});
+}]);
