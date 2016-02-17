@@ -2,7 +2,7 @@
     text-decoration: none;
 }
 
-.active{
+item:active {
     border-color: #0a9dc7;
     background-color: #11c1f3;
     font-weight: bolder;

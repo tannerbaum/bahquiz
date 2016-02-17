@@ -23,13 +23,12 @@ app.controller('QuizCtrl', ['$scope', 'questionsService', function($scope, quest
         }
     }
     
-    $scope.checkAnswer = function(item){
-        console.log(item);
+    $scope.checkAnswer = function(){
+        var ele = document.getElementsByClassName("active");
+        var ans = angular.element(ele).attr('value');
+        console.log ("ans is " + ans);
         
-        var ans = angular.element(item);
-        console.log (ans);
-        
-        if(ans == $scope.answer){ //formally $scope.options[$scope.answer]
+        if(ans == $scope.options[$scope.answer]){ 
             console.log("correct");
             $scope.score++;
             $scope.correctAns = true;
@@ -38,7 +37,9 @@ app.controller('QuizCtrl', ['$scope', 'questionsService', function($scope, quest
             console.log("incorrect");
         }
         
-        $scope.answerMode = false;
+        angular.element(ele).removeClass('active');
+        
+        $scope.nextQuestion();
     }
     
     $scope.nextQuestion = function(){
@@ -46,8 +47,9 @@ app.controller('QuizCtrl', ['$scope', 'questionsService', function($scope, quest
         $scope.getQuestion();
     }
     
-    $scope.chooseAns = function(){
-        console.log("nothing");
+    $scope.setSelected = function(idSelected){
+        $scope.idSelected = idSelected;
+        console.log("selected is " + idSelected);
     }
     
     $scope.reset();

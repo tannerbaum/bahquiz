@@ -4,18 +4,19 @@
 <ion-view view-title="Quiz"> 
   <ion-content class="padding" ng-controller="QuizCtrl">
     <div class="intro" ng-show="!inProgress">
-        <h3> Youtube Video Here </h3>
+        <iframe width="320" height="215" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+        <br>
         <button id="startQuiz" ng-click="start()">Ready?</button>
     </div>
     <div class="quiz-view" ng-show="inProgress">
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
-            <ion-list ng-init="selected = -1">
-                <ion-item ng-repeat="option in options" ng-click="choosAns()"  data="{{ option }}"> 
-                    Hello, {{item}}!
-                </ion-item>
-            </ion-list>
-            <button ng-click="checkAnswer($element.target)">Submit</button>
+             <div class="list list-inset">
+                <div class="item" ng-repeat="option in options" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{option}}">
+                {{ option }}
+                </div>
+            </div>
+            <button ng-click="checkAnswer()">Submit</button>
         </div>
     </div>
         
