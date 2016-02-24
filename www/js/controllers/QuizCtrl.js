@@ -1,4 +1,9 @@
-app.controller('QuizCtrl', ['$scope', 'questionsService', function($scope, questionsService){
+app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', function($scope, questionService, questionFactory){
+    
+    //Might need to be moved into start
+    questionFactory.success(function(data) {
+       $scope.questionSet = data;  
+    });
     
     $scope.start = function(){
         $scope.id = 0;
@@ -13,7 +18,7 @@ app.controller('QuizCtrl', ['$scope', 'questionsService', function($scope, quest
     }
     
     $scope.getQuestion = function(){
-        var question = questionsService.getQuestion($scope.id);
+        var question = questionService.getQuestion($scope.id);
         if(question){
             $scope.question = question.question; //Any questions? lol
             $scope.options = question.options; 

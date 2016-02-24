@@ -12,6 +12,7 @@
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
              <div class="list list-inset">
+                <!--Replace ng-repeat with question in questionSet.jsonarray-->
                 <div class="item" ng-repeat="option in options" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{option}}">
                 {{ option }}
                 </div>

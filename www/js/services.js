@@ -1,4 +1,4 @@
-app.service('questionsService', function() { //Later to be replaced by service with http requests
+app.service('questionService', function() { //Later to be replaced by service with http requests
     var questions = [
         {
             id: '1',
@@ -32,3 +32,13 @@ app.service('questionsService', function() { //Later to be replaced by service w
         }
     }
 })
+
+app.factory('questionFactory', ['$http', function($http){
+    return $http.get('JSONFILE HERE')
+        .success(function(data){
+            return data;
+        })
+        .error(function(err) {
+            return err;
+        });
+}]);
