@@ -24,6 +24,7 @@ app.service('questionService', function() { //Later to be replaced by service wi
         return questions;
     }
     
+    //Might need to replace this with JSON parsing
     this.getQuestion = function(id){
         if(id < questions.length){
             return questions[id];
