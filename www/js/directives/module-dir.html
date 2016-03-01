@@ -1,5 +1,6 @@
 <div class="list card">
-    <a href= "#/tab/modules/quiz">  
+    <!--this might not work without being under the ng-repeat directly-->
+    <a href= "#/tab/modules/{{$index}}"> 
     <div class="item item-avatar">
         <img src="{{ info.mod_avatar }}">    
         <h2>{{ info.title }}</h2>
