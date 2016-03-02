@@ -1,0 +1,17 @@
+"use strict";
+
+var app = require('../routeapp');
+var models = require('../models');
+
+app.set('port', process.env.PORT || 3000);
+	
+var promise = models.sequelize.sync();
+promise.then( function(modelInstance) {
+	var server = app.listen(app.get('port'), () => {
+		var port = server.address().port;
+		console.log('Express server listening on port ' + server.address().port);
+	});
+	return server;
+});
+
+module.exports = promise;

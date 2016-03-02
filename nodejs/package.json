@@ -1,0 +1,12 @@
+{
+  "name": "demo1",
+  "description": "First Express app",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "3.x",
+    "pg": "^4.5.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.19.3"
+  }
+}
