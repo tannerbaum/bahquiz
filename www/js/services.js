@@ -8,16 +8,17 @@ app.service('questionService', function() { //Later to be replaced by service wi
         },
         {
             id: '2',
+            question: "How long have you and Rick known each other",
+            options: ["Who?","Just Met","So Long","A few weeks"],
+            answer: 2
+        },
+        {
+            id: '3',
             question: "True or False? Rick would never make you cry or say goodbye",
             options: ["True","False"], 
             answer: 0
         },
-        {
-            id: '3',
-            question: "How long have you and Rick known each other",
-            options: ["Who?","Just Met","So Long","A few weeks"],
-            answer: 2
-        }
+        
     ];
     
     this.list = function (){

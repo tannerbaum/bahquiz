@@ -52,6 +52,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('tab.quiz2', {
+      url: '/modules/quiz2',
+      views: {
+        'tab-modules': {
+          templateUrl: 'templates/modules-quiz2.html',
+          controller: 'QuizCtrl'
+        }
+      }
+    })
     // .state('tab.quiz', {
     //   url: '/modules/quiz/:id',
     //   views: {

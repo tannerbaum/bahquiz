@@ -5,8 +5,10 @@ app.controller('ModulesCtrl', ['$scope', function($scope){
         title: 'Vessels 101',
         quiz_num: '4 quizzes',
         mod_image: '../img/vessel.jpg',
-        mod_body: 'In this lesson, you will learn all kinds of interesting things like how to swab the poop deck, avoid catching scurvey  and what to do when you get that tingly feeling for your fellow patriots.'
-    },
+        mod_body: 'In this lesson, you will learn how to survive in the wilderness with proper fire skills.'
+    }];
+    
+    $scope.mods = [
     {
         mod_avatar: '../img/ionic.png',
         title: 'Rick Astley',
