@@ -1,9 +1,11 @@
-app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', function($scope, questionService, questionFactory){
+app.controller('QuizCtrl', ['$scope', 'questionService',  function($scope, questionService){
+    //reinject questionFactory later (in function param too)
+    
     
     //Might need to be moved into start
-    questionFactory.success(function(data) {
-       $scope.questionSet = data;  
-    });
+    // questionFactory.success(function(data) {
+    //    $scope.questionSet = data;  
+    // });
     
     $scope.start = function(){
         $scope.id = 0;

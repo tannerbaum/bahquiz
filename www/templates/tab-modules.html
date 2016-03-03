@@ -3,7 +3,23 @@
     <h4>Modules</h2>
     <br> <!-- Replace this with padding later -->
     <div ng-repeat="module in modules">
-        <module info="module"></module>
+        <div class="list card">
+            <!--this might not work without being under the ng-repeat directly-->
+            <!--<a href= "#/tab/modules/{{$index}}"> -->
+            <a href= "#/tab/modules/quiz">  
+            <div class="item item-avatar">
+                <img src="{{ module.mod_avatar }}">    
+                <h2>{{ module.title }}</h2>
+                <p> {{ module.quiz_num }}</p>
+            </div>
+
+            <div class="item item-body">
+                <img class="full-image" src="{{ module.mod_image }}">
+                <p> {{ module.mod_body }} </p>
+            </div>
+            <!--Incorporate completion here-->
+            </a>
+        </div>
     </div>                  
   </ion-content>
 </ion-view>

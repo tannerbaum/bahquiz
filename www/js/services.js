@@ -34,12 +34,14 @@ app.service('questionService', function() { //Later to be replaced by service wi
     }
 })
 
-app.factory('questionFactory', ['$http', function($http){
-    return $http.get('JSONFILE HERE')
-        .success(function(data){
-            return data;
-        })
-        .error(function(err) {
-            return err;
-        });
-}]);
+// app.factory('questionFactory', ['$http', function($http){
+//     return $http.get('question')
+//         .success(function(data){
+//             console.log("success");
+//             return data;
+//         })
+//         .error(function(err) {
+//             console.log("fail");
+//             return err;
+//         });
+// }]);
