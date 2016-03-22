@@ -36,7 +36,9 @@ app.service('questionService', function() { //Later to be replaced by service wi
 })
 
 app.factory('questionFactory', ['$http', function($http){
-    return $http.get('http://localhost:3000/question')
+    function getById(id) {
+        var requestUrl = 'http://localhost:3000/quiz/' + id;
+        return $http.get(requestUrl)
         .success(function(data){
             console.log("success");
             return data;
@@ -45,4 +47,24 @@ app.factory('questionFactory', ['$http', function($http){
             console.log("fail");
             return err;
         });
+    }
+    
+    return {
+        getById: getById //? 
+    };
+}]);
+
+app.factory('quizIndexFactory', [function(){
+    var data = {
+        quizIndex: 0
+    };
+    
+    return{
+        getQuizIndex: function(){
+            return data.quizIndex;
+        },
+        setQuizIndex: function(number){
+            data.quizIndex = number;
+        }
+    };
 }]);

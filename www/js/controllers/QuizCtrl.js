@@ -1,11 +1,15 @@
-app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', function($scope, questionService, questionFactory){
+app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'quizIndexFactory', function($scope, questionService, questionFactory, quizIndexFactory){
     //reinject questionFactory later (in function param too)
+    var quizIndex = quizIndexFactory.getQuizIndex();
     
-    
-    //Might need to be moved into start
-    questionFactory.success(function(data) {
-       $scope.questionSet = data.questions;  
+    questionFactory.getById(quizIndex).then(function(quiz){
+        $scope.quiz = quiz;
     });
+    //After This, you should be ready for dealing with the parsing of the individual questions
+    
+    // questionFactory.success(function(data) {
+    //    $scope.questionSet = data.questions;  
+    // });
     
     $scope.start = function(){
         $scope.id = 0;
@@ -22,9 +26,9 @@ app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', func
     $scope.getQuestion = function(){
         var question = questionService.getQuestion($scope.id);
         if(question){
-            $scope.question = question.question; //Any questions? lol
-            $scope.options = question.options; 
-            $scope.answer = question.answer; 
+            $scope.question = question.question; // questiontext
+            $scope.options = question.options; // array of answers
+            $scope.answer = question.answer; //int value of correct answer
         } else {
             $scope.finished = true;
         }

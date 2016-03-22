@@ -6,7 +6,7 @@
         <div class="list card">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
-            <a href= "#/tab/modules/quiz2">  
+            <a href= "#/tab/modules/quiz2" ng-click="openQuiz()">  
             <div class="item item-avatar">
                 <img src="{{ module.mod_avatar }}">    
                 <h2>{{ module.title }}</h2>
@@ -20,26 +20,6 @@
             <!--Incorporate completion here-->
             </a>
         </div>
-    </div>
-    
-    <div ng-repeat="mod in mods">
-        <div class="list card">
-            <!--this might not work without being under the ng-repeat directly-->
-            <!--<a href= "#/tab/modules/{{$index}}"> -->
-            <a href= "#/tab/modules/quiz">  
-            <div class="item item-avatar">
-                <img src="{{ mod.mod_avatar }}">    
-                <h2>{{ mod.title }}</h2>
-                <p> {{ mod.quiz_num }}</p>
-            </div>
-
-            <div class="item item-body">
-                <img class="full-image" src="{{ mod.mod_image }}">
-                <p> {{ mod.mod_body }} </p>
-            </div>
-            <!--Incorporate completion here-->
-            </a>
-        </div>
-    </div>                  
+    </div>                 
   </ion-content>
 </ion-view>
