@@ -35,10 +35,20 @@ app.get('/module', (req,res) => {
 	});
 });
 
+app.get('/lesson', (req,res) => {
+	var where_clause = {};
+	if (req.query.lessonId){
+		where_clause.lessonId = req.query.lessonId;
+	}
+	models.module.findAll({where : where_clause}).then( (lessons) => {
+		res.status(200).json({ "lessons" : lessons});
+	});
+});
+
 app.post('/lesson', (req, res) => {
 	models.lesson.create({
 		number : req.body.number,
-		name : req.body.name,
+		name : req.body.name, 
 		description : req.body.description,
 		lessonId : req.body.lessonId
 	}).then( (created) => {
