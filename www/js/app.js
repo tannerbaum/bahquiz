@@ -43,24 +43,33 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    // .state('tab.quiz', {
-    //   url: '/modules/quiz',
-    //   views: {
-    //     'tab-modules': {
-    //       templateUrl: 'templates/modules-quiz.html',
-    //       controller: 'QuizCtrl'
-    //     }
-    //   }
-    // })
     .state('tab.quiz', {
-      url: '/modules/quiz/:id',
+      url: '/modules/quiz',
       views: {
         'tab-modules': {
           templateUrl: 'templates/modules-quiz.html',
           controller: 'QuizCtrl'
         }
       }
-    })  
+    })
+    .state('tab.quiz2', {
+      url: '/modules/quiz2',
+      views: {
+        'tab-modules': {
+          templateUrl: 'templates/modules-quiz2.html',
+          controller: 'QuizCtrl'
+        }
+      }
+    })
+    // .state('tab.quiz', {
+    //   url: '/modules/quiz/:id',
+    //   views: {
+    //     'tab-modules': {
+    //       templateUrl: 'templates/modules-quiz.html',
+    //       controller: 'QuizCtrl'
+    //     }
+    //   }
+    // })  
 
   .state('tab.settings', {
     url: '/settings',

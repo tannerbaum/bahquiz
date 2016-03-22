@@ -7,19 +7,18 @@
         <br>
         <br>
         <br>
-        <iframe width="100%" height="215" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/cDxtDxYVlrU" frameborder="0" allowfullscreen></iframe>
         <br>
         <button id="startQuiz" class="button button-block button-positive" ng-click="start()">
             Ready?
         </button>
-        
     </div>
     <div class="quiz-view" ng-show="inProgress">
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
              <div class="list list-inset">
-                <div class="item" ng-repeat="option in questionSet" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{option.a}}">
-                {{ option.question_text }}
+                <div class="item" ng-repeat="option in options" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{option}}">
+                {{ option }}
                 </div>
             </div>
             <button class="button button-block button-positive" ng-click="checkAnswer()">
@@ -29,11 +28,13 @@
     </div>
         
     <div ng-show="finished">
-        <h3> Quiz is Over </h3>
+        <div class="bar bar-header bar-stable">
+            <h1 class="title">All Done!</h1>
+        </div>
         <br>
         <br>
         <br>
-        <h4> {{ score }} + points </h4>
+        <h4> {{ score }} points </h4> <h5> out of 3 </h5>
         <!--TODO: Button here that resets you to module page? -->
         <!--ng-class="{active:($parent.selected == $index)}"-->
     </div> 
