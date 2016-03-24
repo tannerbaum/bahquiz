@@ -1,4 +1,4 @@
-app.controller('ModulesCtrl', ['$scope', 'quizIndexFactory', function($scope, quizIndexFactory){
+app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory', '$http', function($scope, modFact, quizIndexFactory, $http){
     $scope.modules = [
     {
         mod_avatar: '../img/ionic.png',
@@ -8,11 +8,29 @@ app.controller('ModulesCtrl', ['$scope', 'quizIndexFactory', function($scope, qu
         mod_body: 'In this lesson, you will learn how to survive in the wilderness with proper fire skills.'
     }];
     
-    $scope.openQuiz = function(){
-        var id = 0; //replace with a JSON parse of the selected module ID
+    // moduleFactory.success(function(data) {
+    //    console.log("module factory success");
+    //    $scope.moduleSet = data.modules;  
+    // });
+    $scope.moduleSet;
+    $scope.status;
+    
+    getModules();
+    
+    function getModules(){
+        modFact.getList()
+            .then(function (response) {
+                $scope.moduleSet = response.data.modules;
+            }, function (error) {
+                $scope.status = 'unable to load modules in controller: ' + error.message;
+            });
+    }
+    
+    $scope.openQuiz = function(quizID){
+        //replace with a JSON parse of the selected module ID
         // You will need to use a value attr to attach each module with its ID, and then grab the
         // data in the value attr and put it here. You will have some problems isolating the module
-        
-        quizIndexFactory.setQuizIndex(id);
+        console.log("open quiz");
+        quizIndexFactory.setQuizIndex(quizID);
     }
 }]);

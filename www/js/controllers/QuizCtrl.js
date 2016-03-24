@@ -3,6 +3,7 @@ app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'qui
     var quizIndex = quizIndexFactory.getQuizIndex();
     
     questionFactory.getById(quizIndex).then(function(quiz){
+        console.log("setting quiz scope");
         $scope.quiz = quiz;
     });
     //After This, you should be ready for dealing with the parsing of the individual questions

@@ -2,20 +2,20 @@
   <ion-content class="padding">
     <h4>Modules</h2>
     <br> <!-- Replace this with padding later -->
-    <div ng-repeat="module in modules">
+    <div ng-repeat="module in moduleSet">
         <div class="list card">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
-            <a href= "#/tab/modules/quiz2" ng-click="openQuiz()">  
+            <a href= "#/tab/modules/quiz" ng-click="openQuiz({{ module.id }})">  
             <div class="item item-avatar">
                 <img src="{{ module.mod_avatar }}">    
-                <h2>{{ module.title }}</h2>
-                <p> {{ module.quiz_num }}</p>
+                <h2>{{ module.name }}</h2>
+                <p> 1 quiz </p>
             </div>
 
             <div class="item item-body">
                 <img class="full-image" src="{{ module.mod_image }}">
-                <p> {{ module.mod_body }} </p>
+                <p> {{ module.description }} </p>
             </div>
             <!--Incorporate completion here-->
             </a>
