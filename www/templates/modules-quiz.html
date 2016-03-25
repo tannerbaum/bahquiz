@@ -18,8 +18,8 @@
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
              <div class="list list-inset">
-                <div class="item" ng-repeat="option in questionSet" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{option.a}}">
-                {{ option.question_text }}
+                <div class="item" ng-repeat="choice in choices" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{choice}}">
+                {{ choice }}
                 </div>
             </div>
             <button class="button button-block button-positive" ng-click="checkAnswer()">

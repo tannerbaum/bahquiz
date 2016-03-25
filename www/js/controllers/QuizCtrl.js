@@ -1,16 +1,22 @@
 app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'quizIndexFactory', function($scope, questionService, questionFactory, quizIndexFactory){
     //reinject questionFactory later (in function param too)
     var quizIndex = quizIndexFactory.getQuizIndex();
+    $scope.questionSet;
+    $scope.status;
     
-    questionFactory.getById(quizIndex).then(function(quiz){
-        console.log("setting quiz scope");
-        $scope.quiz = quiz;
-    });
-    //After This, you should be ready for dealing with the parsing of the individual questions
+    getQuestions();
     
-    // questionFactory.success(function(data) {
-    //    $scope.questionSet = data.questions;  
-    // });
+    function getQuestions(){
+        questionFactory.getById(quizIndex)
+            .then(function(quiz){
+                console.log("setting quiz scope");
+                $scope.questionSet = quiz.data.questions;
+                // console.log($scope.questionSet[0]);
+            }, function(error){
+                $scope.status = 'unable to load modules in controller: ' + error.message;
+            });
+    }
+    
     
     $scope.start = function(){
         $scope.id = 0;
@@ -24,15 +30,17 @@ app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'qui
         $scope.score = 0;
     }
     
-    $scope.getQuestion = function(){
-        var question = questionService.getQuestion($scope.id);
+    $scope.getQuestion = function(){ 
+        var question = $scope.questionSet[$scope.id];
+
         if(question){
-            $scope.question = question.question; // questiontext
-            $scope.options = question.options; // array of answers
-            $scope.answer = question.answer; //int value of correct answer
+            $scope.question = question.question_text;
+            $scope.choices = [question.a,question.b,question.c,question.d]; // can later make a for loop to add if it isn't NULL for true/false
+            $scope.answer = question.answer;
         } else {
             $scope.finished = true;
         }
+        
     }
     
     $scope.checkAnswer = function(){
@@ -40,7 +48,7 @@ app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'qui
         var ans = angular.element(ele).attr('value');
         console.log ("ans is " + ans);
         
-        if(ans == $scope.options[$scope.answer]){ 
+        if(ans == $scope.choices[$scope.answer]){ 
             console.log("correct");
             $scope.score++;
             $scope.correctAns = true;

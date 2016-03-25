@@ -38,7 +38,8 @@ app.service('questionService', function() { //Later to be replaced by service wi
 app.factory('questionFactory', ['$http', function($http){
     function getById(id) {
         console.log("inside getbyID");
-        var requestUrl = 'http://localhost:3000/quiz/' + id;
+        // var requestUrl = 'http://localhost:3000/quiz/' + id;
+        var requestUrl = 'http://localhost:3000/question';
         return $http.get(requestUrl)
         .success(function(data){
             console.log("success");
