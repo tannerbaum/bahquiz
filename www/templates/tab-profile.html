@@ -1,50 +1,103 @@
 <ion-view view-title="Profile">
-  <ion-content class="padding profile">
+  <ion-content class="padding bg">
       
-      <div class="row logo_div">
-        <div class="col"></div>
-        <div class="col col-75">
-            <img src="../img/logo.png" class="logo">
-        </div> 
-        <div class="col"></div>
-      </div>
+      <div class = "" ng-show="!signedIn">
+        <div class="row logo_div">
+            <div class="col"></div>
+            <div class="col col-75">
+                <img src="../img/logo.png" class="logo">
+            </div> 
+            <div class="col"></div>
+        </div>
 
-      <div class="row motto">
-        <div class="col"></div>
-        <div class="col col-75">
-            <h4> Quizzes aren't just for them </h4>
-        </div>
-        <div class="col"></div>
-      </div>
-      
-      <div class="row">
-        <div class="col"></div>
-        <div class="col col-75">
-            <div class="list">
-                <label class="item item-input">
-                    <input type="text" placeholder="Username">
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="Password">
-                </label>
+        <div class="row motto">
+            <div class="col"></div>
+            <div class="col col-75">
+                <h4> Quizzes aren't just for them </h4>
             </div>
+            <div class="col"></div>
         </div>
-        <div class="col"></div>
+        
+        <div class="row">
+            <div class="col"></div>
+            <div class="col col-75">
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Username">
+                    </label>
+                    <label class="item item-input">
+                        <input type="text" placeholder="Password">
+                    </label>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        
+        <div class="row">
+            <div class="col"></div>
+            <div class="col col-75">
+                <button class="button button-block button-dark button-small" ng-click="authenticate();">
+                Login
+                </button>
+                <button class="button button-block button-dark button-small">
+                Register
+                </button>
+            </div>
+            <div class="col"></div>
+        </div>
       </div>
       
-      <div class="row">
-        <div class="col"></div>
-        <div class="col col-75">
-            <button class="button button-block button-dark button-small">
-            Login
-            </button>
-            <button class="button button-block button-dark button-small">
-            Register
-            </button>
+      <div class="" ng-show="signedIn">
+        <div class="row padding-top">
+            <div class="col"></div>
+            <div class="col col-75">
+                <img src="../img/profile.jpg" class="img-circle profile">
+            </div> 
+            <div class="col"></div>
         </div>
-        <div class="col"></div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col col-75" id="profile-name">
+                <h4> Squidward's Profile </h4>
+            </div> 
+            <div class="col"></div>
+        </div>
+        <div class="row padding-top">
+            <div class="col col-25">
+                <h4> Level </h4>
+            </div>
+            <div class="col">
+                <h3> 3 </h4>
+            </div>  
+        </div>
+        <div class="row padding-top">
+            <div class="col">
+                <div id="progressShell">
+                    <div id="progressBar">
+                        <div id="label">10%</div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="row padding-top">
+            <div class="col">
+                <h4> Badges </h4>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col col-25">
+                <img src="../img/trophy.jpg" class="img-circle">
+            </div>
+            <div class="col"></div> 
+            <div class="col col-25">
+                <img src="../img/trophy.jpg" class="img-circle">                
+            </div> 
+            <div class="col"></div> 
+            <div class="col col-25">
+                <img src="../img/trophy.jpg" class="img-circle">                
+            </div>  
+        </div>
       </div>
-      
 
   </ion-content>
 </ion-view>
