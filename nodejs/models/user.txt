@@ -4,10 +4,7 @@ module.exports = function(sequelize, datatypes) {
 	var lesson = sequelize.define("lesson",{
 	name : datatypes.STRING,
 	description : datatypes.STRING,
-	number : datatypes.INTEGER,
-	thumbpic : datatypes.STRING,
-	lessonvid : datatypes.STRING,
-	moduleId : datatypes.INTEGER
+	number : datatypes.INTEGER
 }, {
         classMethods: {
             associate: function(models) {
