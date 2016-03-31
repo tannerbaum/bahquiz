@@ -1,9 +1,19 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var cors = require('cors');
 var models = require('./models');
 var body_parser = require('body-parser');
 app.use(body_parser.json());
+
+app.use(cors());
+app.get('/products/:id', function(req, res, next){
+ res.json({msg: 'This is CORS-enabled for all origins!'});
+});
+app.listen(80, function(){
+ console.log('CORS-enabled web server listening on port 80');
+});
+
 app.get('/', function(request, response) {
     response.send("Oh look, it's me");
 });
