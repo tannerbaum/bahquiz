@@ -38,10 +38,30 @@ app.get('/module', (req,res) => {
 app.get('/lesson', (req,res) => {
 	var where_clause = {};
 	if (req.query.lessonId){
-		where_clause.lessonId = req.query.lessonId;
+		where_clause.moduleId = req.query.moduleId;
 	}
-	models.module.findAll({where : where_clause}).then( (lessons) => {
+	models.lesson.findAll({where : where_clause}).then( (lessons) => {
 		res.status(200).json({ "lessons" : lessons});
+	});
+});
+
+app.get('/user', (req,res) => {
+	var where_clause = {};
+	if (req.query.userId){
+		where_clause.userId = req.query.userId;
+	}
+	models.user.findAll({where : where_clause}).then( (users) => {
+		res.status(200).json({ "users" : users});
+	});
+});
+
+app.get('/score', (req,res) => {
+	var where_clause = {};
+	if (req.query.scoreId){
+		where_clause.scoreId = req.query.scoreId;
+	}
+	models.score.findAll({where : where_clause}).then( (scores) => {
+		res.status(200).json({ "scores" : scores});
 	});
 });
 
@@ -50,7 +70,9 @@ app.post('/lesson', (req, res) => {
 		number : req.body.number,
 		name : req.body.name, 
 		description : req.body.description,
-		lessonId : req.body.lessonId
+		thumbpic : req.body.thumbpic,
+		lessonvid : req.body.lessonvid,
+		moduleId : req.body.moduleId
 	}).then( (created) => {
 		res.status(200).json({
 			lessons: created.dataValues
@@ -67,6 +89,31 @@ app.post('/module', (req, res) => {
 		});
 	});
 });
+
+app.post('/user', (req, res) => {
+	models.user.create({
+		name : req.body.name,
+		pass : req.body.pass
+	}).then( (created) => {
+		res.status(200).json({
+			users: created.dataValues
+		});
+	});
+});
+
+app.post('/scores', (req, res) => {
+	models.score.create({
+		user_name : req.body.user_name,
+		module_id : req.body.module_id,
+		lesson_id : req.body.lesson_id,
+		score : req.body.score
+	}).then( (created) => {
+		res.status(200).json({
+			scores: created.dataValues
+		});
+	});
+});
+
 app.post('/question', (req, res) => {
 	models.question.create({
 		question_text : req.body.question_text,
@@ -74,7 +121,8 @@ app.post('/question', (req, res) => {
 		a : req.body.a,
 		b : req.body.b,
 		c : req.body.c,
-		d : req.body.d
+		d : req.body.d,
+		lessonId : req.body.lessonId
 	}).then( (created) => {
 		res.status(200).json({
 			questions: created.dataValues

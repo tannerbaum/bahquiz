@@ -7,7 +7,8 @@ module.exports = function(sequelize, datatypes) {
 	a : datatypes.STRING,
 	b : datatypes.STRING,
 	c : datatypes.STRING,
-	d : datatypes.STRING
+	d : datatypes.STRING,
+	lessonId : datatypes.INTEGER
 }, {
         classMethods: {
             associate: function(models) {
