@@ -59,12 +59,35 @@ app.factory('questionFactory', ['$http', function($http){
 app.factory('modFact', ['$http', function($http){
     var modFact = {};
     
-    modFact.getList = function() {
-        console.log("success");
+    modFact.getList = function() { //do an experiment later to see which modfact this is 
         return $http.get('http://localhost:3000/module');
     };
     
     return modFact;
+}]);
+
+app.factory('userFactory', ['$http', function($http){
+    var userFactory = {};
+    var username;
+    var password;
+    
+    userFactory.getList = function() {
+        console.log("success");
+        return $http.get('http://localhost:3000/users');
+    };
+    
+    userFactory.setUser = function(name,pass) {
+        username = name;
+        password = pass;
+    }
+    
+    userFactory.getUser = function() {
+        if(username != null){
+            return username;
+        }
+    }
+    
+    return userFactory;
 }]);
 
 app.factory('quizIndexFactory', [function(){

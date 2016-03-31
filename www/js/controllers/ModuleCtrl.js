@@ -16,7 +16,7 @@ app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory', '$http', f
     $scope.status;
     
     getModules();
-    
+     
     function getModules(){
         modFact.getList()
             .then(function (response) {
@@ -31,6 +31,6 @@ app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory', '$http', f
         // You will need to use a value attr to attach each module with its ID, and then grab the
         // data in the value attr and put it here. You will have some problems isolating the module
         console.log("open quiz");
-        quizIndexFactory.setQuizIndex(quizID);
+        quizIndexFactory.setQuizIndex(quizID); //this is the cross controller variable sharing
     }
 }]);
