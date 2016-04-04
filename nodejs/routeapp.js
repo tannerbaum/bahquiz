@@ -47,7 +47,7 @@ app.get('/module', (req,res) => {
 
 app.get('/lesson', (req,res) => {
 	var where_clause = {};
-	if (req.query.lessonId){
+	if (req.query.moduleId){
 		where_clause.moduleId = req.query.moduleId;
 	}
 	models.lesson.findAll({where : where_clause}).then( (lessons) => {
@@ -92,7 +92,8 @@ app.post('/lesson', (req, res) => {
 app.post('/module', (req, res) => {
 	models.module.create({
 		name : req.body.name,
-		description : req.body.description
+		description : req.body.description,
+		thumbpic : req.body.description
 	}).then( (created) => {
 		res.status(200).json({
 			modules: created.dataValues
