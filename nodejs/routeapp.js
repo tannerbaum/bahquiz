@@ -93,7 +93,7 @@ app.post('/module', (req, res) => {
 	models.module.create({
 		name : req.body.name,
 		description : req.body.description,
-		thumbpic : req.body.description
+		thumbpic : req.body.thumbpic
 	}).then( (created) => {
 		res.status(200).json({
 			modules: created.dataValues
