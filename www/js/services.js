@@ -69,16 +69,14 @@ app.factory('modFact', ['$http', function($http){
 app.factory('userFactory', ['$http', function($http){
     var userFactory = {};
     var username;
-    var password;
     
     userFactory.getList = function() {
         console.log("success");
-        return $http.get('http://localhost:3000/users');
+        return $http.get('http://localhost:3000/user');
     };
     
-    userFactory.setUser = function(name,pass) {
+    userFactory.setUser = function(name) {
         username = name;
-        password = pass;
     }
     
     userFactory.getUser = function() {

@@ -1,7 +1,10 @@
-app.controller('ProfileCtrl', ['$scope','userFactory', function($scope,userFactory) {
+app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($scope,$timeout,userFactory) {
 
     $scope.username;
     $scope.password;
+    $scope.users;
+    
+    getUsers();
 
     $scope.register = function(){
         var i;
@@ -27,29 +30,29 @@ app.controller('ProfileCtrl', ['$scope','userFactory', function($scope,userFacto
     }
     
     $scope.authenticate = function(){
-        var i;
+        var i = 0;
+        $scope.username = document.getElementById("username").value;
+        $scope.password = document.getElementById("password").value;
         
-        $scope.username = document.getElementById("username");
-        $scope.password = document.getElementById("password");
-        
-        getUsers();
-        
-        while($scope.users[i] != null){
-            if($scope.username == $scope.users[i].username){
-                if($scope.password == $scope.users[i].password){
+        while(i < $scope.users.length){
+            console.log("name is: " + $scope.username);
+            
+            console.log($scope.users[i].name);
+            console.log($scope.users[i].pass);
+            if($scope.username == $scope.users[i].name && $scope.password == $scope.users[i].pass){
+                    console.log("user match");
                     $scope.signedIn = true;
                     updateBar();
+                    userFactory.setUser($scope.username);
+                    console.log(userFactory.getUser());
                     break;
-                } else{
-                    //somehow display the password is incorrect
-                    break;
-                }
             }
             i++;
         }
         
         if($scope.signedIn != true){
             //somehow display the username is incorrect
+            alert("Wrong username or Password");
         }  
     }
 
@@ -67,11 +70,21 @@ app.controller('ProfileCtrl', ['$scope','userFactory', function($scope,userFacto
             }
         }
     }
-    
+ 
     function getUsers(){
         userFactory.getList()
             .then(function (response) {
-                $scope.users = response.data.users; //check on this
+                $scope.users = response.data.users;
+                console.log($scope.users[0]);
+                
+                // return response.data.users;
+                // $scope.$apply(function(){
+                //     $scope.users = response.data.users;
+                // })
+                // $timeout(function(){
+                // $scope.users = response.data.users;
+                // })
+                // console.log($scope.users[0]);
             }, function (error) {
                 $scope.status = 'unable to load users in controller: ' + error.message;
             });
