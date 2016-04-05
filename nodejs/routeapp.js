@@ -38,7 +38,7 @@ app.get('/question', (req, res) => {
 app.get('/module', (req,res) => {
 	var where_clause = {};
 	if (req.query.moduleId){
-		where_clause.lessonId = req.query.moduleId;
+		where_clause.moduleId = req.query.moduleId;
 	}
 	models.module.findAll({where : where_clause}).then( (modules) => {
 		res.status(200).json({ "modules" : modules});
