@@ -112,7 +112,7 @@ app.post('/user', (req, res) => {
 	});
 });
 
-app.post('/scores', (req, res) => {
+app.post('/score', (req, res) => {
 	models.score.create({
 		user_name : req.body.user_name,
 		module_id : req.body.module_id,
