@@ -6,11 +6,13 @@
     }
     Lessons
     {
-        mod_avatar: '../img/ionic.png',
-        title: 'Fire Skills 101',
-        quiz_num: '4 quizzes',
-        mod_image: '../img/fire.jpg',
-        mod_body: 'In this lesson, you will learn how to survive in the wilderness with proper fire skills.'
+        id: 1,
+        moduleId: 1,
+        name: 'Fire Skills 101',
+        number: '1',
+        thumbpic: 'fire.jpg',
+        description: 'In this lesson, you will learn how to survive in the wilderness with proper fire skills.',
+        lessonvid: "https://youtu.be/obmnFv-JmS0"
     }
     questions
         {
