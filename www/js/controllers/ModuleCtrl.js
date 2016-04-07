@@ -26,11 +26,11 @@ app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory', '$http', f
             });
     }
     
-    $scope.openQuiz = function(quizID){
-        //replace with a JSON parse of the selected module ID
-        // You will need to use a value attr to attach each module with its ID, and then grab the
-        // data in the value attr and put it here. You will have some problems isolating the module
-        console.log("open quiz");
-        quizIndexFactory.setQuizIndex(quizID); //this is the cross controller variable sharing
-    }
+    // $scope.openLesson = function(quizID){
+    //     //replace with a JSON parse of the selected module ID
+    //     // You will need to use a value attr to attach each module with its ID, and then grab the
+    //     // data in the value attr and put it here. You will have some problems isolating the module
+    //     console.log("open quiz");
+    //     quizIndexFactory.setQuizIndex(quizID); //this is the cross controller variable sharing
+    // }
 }]);

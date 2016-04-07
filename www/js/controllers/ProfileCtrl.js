@@ -8,7 +8,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     getUsers();
     // getScores();
     
-    if(userFactory.getLoggedIn == false){
+    if(userFactory.getLoggedIn == false){ // this needs to be a constant check  
         $scope.signedIn = false;
     }
 

@@ -1,4 +1,4 @@
-app.controller('QuizCtrl', ['$scope', 'questionService', 'questionFactory', 'quizIndexFactory', function($scope, questionService, questionFactory, quizIndexFactory){
+app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory', function($scope, questionFactory, quizIndexFactory){
     //reinject questionFactory later (in function param too)
     var quizIndex = quizIndexFactory.getQuizIndex();
     $scope.questionSet;
