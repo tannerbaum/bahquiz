@@ -3,19 +3,25 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     $scope.username;
     $scope.password;
     $scope.users;
+    $scope.scores;
     
     getUsers();
+    // getScores();
+    
+    if(userFactory.getLoggedIn == false){
+        $scope.signedIn = false;
+    }
 
     $scope.register = function(){
         var i;
         var registered;
         
-        $scope.username = document.getElementById("username");
-        $scope.password = document.getElementById("password");
+        $scope.username = document.getElementById("username").value;
+        $scope.password = document.getElementById("password").value;
         
         while($scope.users[i] != null){
             if($scope.username == $scope.users[i].username){
-                    //somehow print the user exsits
+                    alert("User already exists!");
                     registered = true;
                     break;
             }
@@ -23,7 +29,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         }
         
         if(registered != true){
-            //post request
+            userFactory.register($scope.username, $scope.password);
             $scope.signedIn = true;
             updateBar();
         }
@@ -44,7 +50,6 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
                     $scope.signedIn = true;
                     updateBar();
                     userFactory.setUser($scope.username);
-                    console.log(userFactory.getUser());
                     break;
             }
             i++;
@@ -89,4 +94,23 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
                 $scope.status = 'unable to load users in controller: ' + error.message;
             });
     }
+    
+    // function getScores(){
+    //     scoreFactory.getList()
+    //         .then(function (response) {
+    //             var data = response.data.users;
+                
+                
+    //             // return response.data.users;
+    //             // $scope.$apply(function(){
+    //             //     $scope.users = response.data.users;
+    //             // })
+    //             // $timeout(function(){
+    //             // $scope.users = response.data.users;
+    //             // })
+    //             // console.log($scope.users[0]);
+    //         }, function (error) {
+    //             $scope.status = 'unable to load users in controller: ' + error.message;
+    //         });
+    // }
 }])

@@ -3,7 +3,7 @@
     <h4>Modules</h2>
     <br> <!-- Replace this with padding later -->
     <div ng-repeat="module in moduleSet">
-        <div class="list card">
+        <div class="list card" value="{{module.id}}">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
             <a href= "#/tab/modules/quiz" ng-click="openQuiz({{ module.id }})">  
@@ -14,9 +14,13 @@
             </div>
 
             <div class="item item-body">
-                <img class="full-image" src="{{ module.mod_image }}">
+                <img class="full-image" src="{{ module.thumbpic }}">
                 <p> {{ module.description }} </p>
             </div>
+            
+            <div class="item">
+                Score: {{  }}
+            </div>   
             <!--Incorporate completion here-->
             </a>
         </div>

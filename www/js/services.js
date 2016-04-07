@@ -69,20 +69,47 @@ app.factory('modFact', ['$http', function($http){
 app.factory('userFactory', ['$http', function($http){
     var userFactory = {};
     var username;
+    var loggedIn;
     
     userFactory.getList = function() {
         console.log("success");
         return $http.get('http://localhost:3000/user');
     };
     
+    userFactory.register = function(name,password) {
+        var data = {   
+                name: name,
+                pass: password         
+            };
+        console.log(data);
+        var res = $http.post("http://localhost:3000/user", data);
+            res.success(function(data, status, headers, config) {
+                $scope.message = data;
+            });
+            res.error(function(data, status, headers, config){
+                alert( "failure message: " + JSON.stringify({data: data}));
+            })
+    }
+    
     userFactory.setUser = function(name) {
         username = name;
+        loggedIn = true;
     }
     
     userFactory.getUser = function() {
         if(username != null){
             return username;
         }
+    }
+    
+    userFactory.logoutUser = function(){
+        username = null;
+        loggedIn = false;
+        console.log("halfway there");
+    }
+    
+    userFactory.getLoggedIn = function(){
+        return loggedIn;
     }
     
     return userFactory;
