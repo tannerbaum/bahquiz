@@ -13,7 +13,7 @@ app.get('/products/:id', function(req, res, next){
 app.listen(80, function(){
  console.log('CORS-enabled web server listening on port 80');
 });
-
+//Begin Gets
 app.get('/', function(request, response) {
     response.send("Oh look, it's me");
 });
@@ -24,7 +24,6 @@ app.get('/realtho', function(request, response) {
         response.end();
     });
 });
-// ?lessonId=:id to get all with a specific lesson id
 app.get('/question', (req, res) => {
 	var where_clause = {};
 	if (req.query.lessonId){
@@ -74,7 +73,7 @@ app.get('/score', (req,res) => {
 		res.status(200).json({ "scores" : scores});
 	});
 });
-
+//Begin Posts
 app.post('/lesson', (req, res) => {
 	models.lesson.create({
 		number : req.body.number,
@@ -104,7 +103,8 @@ app.post('/module', (req, res) => {
 app.post('/user', (req, res) => {
 	models.user.create({
 		name : req.body.name,
-		pass : req.body.pass
+		pass : req.body.pass,
+		totalscore : req.body.pass
 	}).then( (created) => {
 		res.status(200).json({
 			users: created.dataValues
@@ -140,7 +140,12 @@ app.post('/question', (req, res) => {
 		});
 	});
 });
+//Begin Deletes
 
+//app.delete('/question', (req,res) => {
+//	models.question.delete({
+//		where ])
+//}
 
 
 module.exports = app;
