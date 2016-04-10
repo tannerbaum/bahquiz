@@ -9,8 +9,11 @@ item:active {
 }
 
 img.logo{
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
+    /* text-align: center; */
+    margin: auto;
+    display: block;
 }
 
 .logo_div{
@@ -34,12 +37,12 @@ h4{
 
 .img-circle{
     border-radius: 50%;
-}
-
-img.img-circle.profile {
-    border: black;
-    border-style: solid;
-    border-width: 8px;
+    border: solid 1px #555;
+    background-color: #eed;
+    box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
+    -moz-box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
+    -o-box-shadow: 0px 4px 5px rgba(0,0,0,0.2);
 }
 
 #progressShell {
@@ -62,15 +65,17 @@ img.img-circle.profile {
 }
 
 .profile{
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
+    display: block;
+    margin: auto;
 }
 
-.badge{
-    width: 100%;
-    height: 100%;
-}
+/*.badge{
+    margin: auto;
+    display: block;
+}*/
 
-#profile-name{
+.center-text{
     text-align: center;
 }

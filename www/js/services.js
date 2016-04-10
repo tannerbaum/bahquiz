@@ -35,7 +35,6 @@ app.factory('userFactory', ['$http', function($http){
     var loggedIn;
     
     userFactory.getList = function() {
-        console.log("success");
         return $http.get('http://localhost:3000/user');
     };
     
@@ -96,9 +95,19 @@ app.factory('quizIndexFactory', [function(){
 app.factory('lessonFact', ['$http', function($http){
     var lessonFact = {};
     
-    lessonFact.getList = function() { //do an experiment later to see which modfact this is 
+    lessonFact.getList = function() {
         return $http.get('http://localhost:3000/lesson');
     };
     
     return lessonFact;
+}]);
+
+app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
+    var scoreFact = {};
+    
+    scoreFact.getList = function() { 
+        return $http.get('http://localhost:3000/score'); // this will be specific call to users
+    };
+    
+    return scoreFact;
 }]);

@@ -3,7 +3,7 @@
     <h4>Lessons</h2>
     <br> <!-- Replace this with padding later -->
     <div ng-repeat="lesson in lessonSet">
-        <div class="list card" value="{{lesson.id}}">
+        <div class="list card" value="{{(lesson.id) - 1 }}">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
             <a href= "#/tab/modules/lessons/quiz" ng-click="openQuiz({{ lesson.id }})">  
@@ -18,7 +18,7 @@
             </div>
             
             <div class="item">
-                Score: {{  }}
+                Score: {{ $scope.scoreArray }}
             </div>   
             <!--Incorporate completion here-->
             </a>
