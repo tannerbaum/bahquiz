@@ -1,21 +1,20 @@
-<ion-view view-title="Modules">
-  <ion-content class="padding">
-    <h4>Modules</h2>
+<ion-view view-title="Lessons">
+  <ion-content class="padding" ng-controller="LessonsCtrl">
+    <h4>Lessons</h2>
     <br> <!-- Replace this with padding later -->
-    <div ng-repeat="module in moduleSet">
-        <div class="list card" value="{{module.id}}">
+    <div ng-repeat="lesson in lessonSet">
+        <div class="list card" value="{{lesson.id}}">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
-            <a href= "#/tab/modules/lessons" ng-click="openQuiz({{ module.id }})">  
+            <a href= "#/tab/modules/lessons/quiz" ng-click="openQuiz({{ lesson.id }})">  
             <div class="item item-avatar">
-                <img src="{{ module.mod_avatar }}">    
-                <h2>{{ module.name }}</h2>
-                <p> 1 quiz </p>
+                <img src="{{ lesson.mod_avatar }}">    
+                <h2>{{ lesson.name }}</h2>
             </div>
 
             <div class="item item-body">
-                <img class="full-image" src="{{ module.thumbpic }}">
-                <p> {{ module.description }} </p>
+                <img class="full-image" src="{{ lesson.thumbpic }}">
+                <p> {{ lesson.description }} </p>
             </div>
             
             <div class="item">

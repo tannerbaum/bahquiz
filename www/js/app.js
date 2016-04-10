@@ -43,8 +43,17 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('tab.lessons', {
+      url: '/modules/lessons',
+      views: {
+        'tab-modules': {
+          templateUrl: 'templates/tab-lessons.html',
+          controller: 'LessonsCtrl'
+        }
+      }
+    })
     .state('tab.quiz', {
-      url: '/modules/quiz',
+      url: '/modules/lessons/quiz',
       views: {
         'tab-modules': {
           templateUrl: 'templates/modules-quiz.html',

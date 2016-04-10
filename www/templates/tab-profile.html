@@ -22,11 +22,11 @@
             <div class="col"></div>
             <div class="col col-75">
                 <div class="list">
-                    <label class="item item-input" id="username">
-                        <input type="text" placeholder="Username">
+                    <label class="item item-input" >
+                        <input type="text" placeholder="Username" id="username">
                     </label>
-                    <label class="item item-input" id="password">
-                        <input type="text" placeholder="Password">
+                    <label class="item item-input" >
+                        <input type="password" data-ng-model="maskedValue" placeholder="Password" id="password">
                     </label>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <button class="button button-block button-dark button-small" ng-click="authenticate();">
                 Login
                 </button>
-                <button class="button button-block button-dark button-small">
+                <button class="button button-block button-dark button-small" ng-click="register();">
                 Register
                 </button>
             </div>
