@@ -104,7 +104,7 @@ app.post('/user', (req, res) => {
 	models.user.create({
 		name : req.body.name,
 		pass : req.body.pass,
-		totalscore : req.body.pass
+		totalscore : req.body.totalscore
 	}).then( (created) => {
 		res.status(200).json({
 			users: created.dataValues
@@ -113,6 +113,9 @@ app.post('/user', (req, res) => {
 });
 
 app.post('/score', (req, res) => {
+	models.user.findAll({where : { name : req.body.user_name}}).then(function(data) {
+	user = data[0];
+	user.update({totalscore : user.totalscore + req.body.score});
 	models.score.create({
 		user_name : req.body.user_name,
 		module_id : req.body.module_id,
@@ -122,6 +125,7 @@ app.post('/score', (req, res) => {
 		res.status(200).json({
 			scores: created.dataValues
 		});
+	});
 	});
 });
 
