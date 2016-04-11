@@ -7,6 +7,12 @@
 // 'starter.controllers' is found in controllers.js
 var app = angular.module('bahquiz', ['ionic'])
 
+app.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
+
 app.config(function($stateProvider, $urlRouterProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states

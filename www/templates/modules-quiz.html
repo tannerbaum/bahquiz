@@ -7,7 +7,7 @@
         <br>
         <br>
         <br>
-        <iframe width="100%" height="215" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" frameborder="0" allowfullscreen></iframe>
+        <iframe width="100%" height="215" src="{{videoLink | trusted}}" frameborder="0" allowfullscreen></iframe>
         <br>
         <button id="startQuiz" class="button button-block button-positive" ng-click="start()">
             Ready?
@@ -27,13 +27,28 @@
             </button>
         </div>
     </div>
+    
+    
+    <!--Fix this-->
+    <!--<div class="quiz-view" ng-show="inProgress">
+        <div ng-show="!finished">
+            <h4> {{ question }} </h4> 
+             <div class="list list-inset">
+                <ion-list>
+                    <ion-radio ng-repeat="ans in answers" ng-model="$parent.selected" ng-value="{{ ans }}">{{ ans }}</ion-radio>
+                </ion-list>
+            <button class="button button-block button-positive" ng-click="checkAnswer({{selected}})">
+            Next Question
+            </button>
+        </div>
+    </div>-->
         
     <div ng-show="finished">
         <h3> Quiz is Over </h3>
         <br>
         <br>
         <br>
-        <h4> {{ score }} + points </h4>
+        <h4> You finished with {{ score }}% correct</h4>
         <!--TODO: Button here that resets you to module page? -->
         <!--ng-class="{active:($parent.selected == $index)}"-->
     </div> 

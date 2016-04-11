@@ -74,6 +74,10 @@ app.factory('userFactory', ['$http', function($http){
         return loggedIn;
     }
     
+    userFactory.addPoints = function(points){
+        //function to add points (with scoreFactory)
+    }
+    
     return userFactory;
 }]);
 
@@ -94,10 +98,15 @@ app.factory('quizIndexFactory', [function(){
 
 app.factory('lessonFact', ['$http', function($http){
     var lessonFact = {};
+    var get;
     
-    lessonFact.getList = function() {
+    lessonFact.getList = function() { // add ID function for group of lessons
         return $http.get('http://localhost:3000/lesson');
     };
+    
+    lessonFact.getVid = function(id){ // add ID functino for specific lesson
+        return $http.get('http://localhost:3000/lesson'); 
+    }
     
     return lessonFact;
 }]);
