@@ -1,10 +1,14 @@
-app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','lessonFact','userFactory', function($scope, questionFactory, quizIndexFactory, lessonFact, userFactory){
-    //reinject questionFactory later (in function param too)
+//I recognize that this controller has become Frakenstein-like with all the injections. 
+//This was initially a shortcoming of my knowlege of the potential of injections and services,
+//and later a time issue. This controller would probably be the first thing I cleaned up if I went back. 
+app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','lessonFact','userFactory', 'scoreFact' , function($scope, questionFactory, quizIndexFactory, lessonFact, userFactory, scoreFact){
+
     var quizIndex = quizIndexFactory.getQuizIndex();
     $scope.questionSet;
     $scope.status;
-    $scope.videoLink = "";
-    // $scope.test = {choice: x};
+    $scope.videoLink;
+    $scope.lesson;
+    $scope.mod;
     
     getQuestions();
     
@@ -13,22 +17,37 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
             .then(function(quiz){
                 console.log("setting quiz scope");
                 $scope.questionSet = quiz.data.questions;
+                findPlace();
+            }, function(error){
+                $scope.status = 'unable to load modules in QuizCtrl.js: ' + error.message;
+            });
+    }
+    
+    function findPlace(){
+        var temp;
+        $scope.lesson = $scope.questionSet[0].lessonId;
+        lessonFact.findMod($scope.lesson)
+            .then(function(response){
+                
+                temp = response.data.lessons;
+                $scope.mod = temp[0].moduleId; // make this the right ID 
+                console.log("scope.mod is");
+                console.log(id);
                 getVid();
             }, function(error){
-                $scope.status = 'unable to load modules in controller: ' + error.message;
+                $scope.status = 'unable to find module in QuizCtrl.js: ' + error.message;
             });
     }
     
     function getVid(){
         var temp;
-        lessonFact.getVid($scope.questionSet[0].lessonId)
+        
+        lessonFact.getLesson($scope.lesson)
             .then(function (response) {
                 temp = response.data.lessons;
-                // console.log("link is");
-                // console.log(temp);
-                $scope.videoLink = temp[0].lessonvid;
+                $scope.videoLink = temp[0].lessonvid; //make this right ID 
             }, function (error) {
-                $scope.status = 'unable to load lessons in controller: ' + error.message;
+                $scope.status = 'unable to load lessons in QuizCtrl.js: ' + error.message;
             });
     }
     
@@ -55,7 +74,8 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
         } else {
             $scope.finished = true;
             $scope.score = ($scope.score / $scope.questionNum ) * 100;
-            userFactory.addPoints($scope.score);
+            scoreFact.updateScore($scope.mod,$scope.lesson,$scope.score);
+            userFactory.addPoints($scope.score); // is this working?
         }
         
     }

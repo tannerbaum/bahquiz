@@ -32,6 +32,7 @@ app.factory('modFact', ['$http', function($http){
 app.factory('userFactory', ['$http', function($http){
     var userFactory = {};
     var username;
+    var score;
     var loggedIn;
     
     userFactory.getList = function() {
@@ -41,9 +42,10 @@ app.factory('userFactory', ['$http', function($http){
     userFactory.register = function(name,password) {
         var data = {   
                 name: name,
-                pass: password         
+                pass: password,
+                totalscore: 0         
             };
-        console.log(data);
+
         var res = $http.post("http://localhost:3000/user", data);
             res.success(function(data, status, headers, config) {
                 $scope.message = data;
@@ -53,8 +55,9 @@ app.factory('userFactory', ['$http', function($http){
             })
     }
     
-    userFactory.setUser = function(name) {
+    userFactory.setUser = function(name, savedScore) {
         username = name;
+        score = savedScore;
         loggedIn = true;
     }
     
@@ -76,6 +79,8 @@ app.factory('userFactory', ['$http', function($http){
     
     userFactory.addPoints = function(points){
         //function to add points (with scoreFactory)
+        score = score + points;
+        //post request to update score
     }
     
     return userFactory;
@@ -104,9 +109,10 @@ app.factory('lessonFact', ['$http', function($http){
         return $http.get('http://localhost:3000/lesson');
     };
     
-    lessonFact.getVid = function(id){ // add ID functino for specific lesson
+    lessonFact.getLesson = function(id){ // add ID functino for specific lesson
         return $http.get('http://localhost:3000/lesson'); 
-    }
+    };
+    
     
     return lessonFact;
 }]);
@@ -117,6 +123,24 @@ app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
     scoreFact.getList = function() { 
         return $http.get('http://localhost:3000/score'); // this will be specific call to users
     };
+    
+    scoreFact.updateScore = function(mod, less, value){
+        var data = {   
+            user_name: userFactory.getUser,
+            module_id: mod,
+            lesson_id: less, 
+            score: value       
+        };
+        // console.log(data);
+        var res = $http.post("http://localhost:3000/score", data);
+            res.success(function(data, status, headers, config) {
+                $scope.message = data;
+            });
+            res.error(function(data, status, headers, config){
+                alert( "failure message: " + JSON.stringify({data: data}));
+            })
+    }
+    //total score function here
     
     return scoreFact;
 }]);

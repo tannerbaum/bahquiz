@@ -4,6 +4,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     $scope.password;
     $scope.users;
     $scope.scores;
+    $scope.userScore;
     
     getUsers();
     // getScores();
@@ -37,6 +38,8 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     
     $scope.authenticate = function(){
         var i = 0;
+        // var score;
+        
         $scope.username = document.getElementById("username").value;
         $scope.password = document.getElementById("password").value;
         
@@ -48,8 +51,10 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             if($scope.username == $scope.users[i].name && $scope.password == $scope.users[i].pass){
                     console.log("user match");
                     $scope.signedIn = true;
+                    // score = $scope.users[i].totalscore;
+                    $scope.userScore = $scope.users[i].totalscore;
                     updateBar();
-                    userFactory.setUser($scope.username);
+                    userFactory.setUser($scope.username,$scope.userScore);
                     break;
             }
             i++;
