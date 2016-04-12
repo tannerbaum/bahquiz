@@ -8,6 +8,7 @@ module.exports = function(sequelize, datatypes) {
 }, {
         classMethods: {
             associate: function(models) {
+				//onDelete : "Cascade";
 
             }
         }

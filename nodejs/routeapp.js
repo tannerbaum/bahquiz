@@ -74,7 +74,24 @@ app.get('/score', (req,res) => {
 	});
 });
 //Begin Posts
+//Overwrites Duplicate entries; functions as an update
 app.post('/lesson', (req, res) => {
+	models.lesson.findAll({where : {name : req.body.name}}).then(function(data) {
+	lesson = data[0];
+	if ( lesson ){
+		lesson.update({
+		number : req.body.number,
+		name : req.body.name, 
+		description : req.body.description,
+		thumbpic : req.body.thumbpic,
+		lessonvid : req.body.lessonvid,
+		moduleId : req.body.moduleId
+		}).then( (created) => {
+			res.status(200).json({
+				new_lesson: created.dataValues
+			})	
+		});
+	} else {
 	models.lesson.create({
 		number : req.body.number,
 		name : req.body.name, 
@@ -87,8 +104,23 @@ app.post('/lesson', (req, res) => {
 			lessons: created.dataValues
 		});
 	});
+	}});
 });
+//Overwrites Duplicate entries; functions as an update
 app.post('/module', (req, res) => {
+	models.module.findAll({where : {name : req.body.name}}).then(function(data) {
+	module = data[0];
+	if ( module ){
+		module.update({
+		name : req.body.name,
+		description : req.body.description,
+		thumbpic : req.body.thumbpic 
+		}).then( (created) => {
+			res.status(200).json({
+				new_module: created.dataValues
+			})	
+		});
+	} else {
 	models.module.create({
 		name : req.body.name,
 		description : req.body.description,
@@ -98,8 +130,8 @@ app.post('/module', (req, res) => {
 			modules: created.dataValues
 		});
 	});
+	}});
 });
-
 app.post('/user', (req, res) => {
 	models.user.create({
 		name : req.body.name,
@@ -111,7 +143,7 @@ app.post('/user', (req, res) => {
 		});
 	});
 });
-
+//Adds posted score to the ascociated user's lifetime totalscore
 app.post('/score', (req, res) => {
 	models.user.findAll({where : { name : req.body.user_name}}).then(function(data) {
 	user = data[0];
@@ -128,8 +160,25 @@ app.post('/score', (req, res) => {
 	});
 	});
 });
-
+//Overwrites Duplicate entries; functions as an update
 app.post('/question', (req, res) => {
+	models.question.findAll({where : {question_text : req.body.question_text}}).then(function(data) {
+	question = data[0];
+	if ( question ){
+		question.update({
+			question_text : req.body.question_text,
+			answer : req.body.answer,
+			a : req.body.a,
+			b : req.body.b, 
+			c : req.body.c,
+			d : req.body.d,
+			lessonId : req.body.lessonId
+		}).then( (created) => {
+			res.status(200).json({
+				new_question: created.dataValues
+			})	
+		});
+	} else {
 	models.question.create({
 		question_text : req.body.question_text,
 		answer : req.body.answer,
@@ -140,16 +189,56 @@ app.post('/question', (req, res) => {
 		lessonId : req.body.lessonId
 	}).then( (created) => {
 		res.status(200).json({
-			questions: created.dataValues
+			scores: created.dataValues
 		});
 	});
+	}});
 });
 //Begin Deletes
 
-//app.delete('/question', (req,res) => {
-//	models.question.delete({
-//		where ])
-//}
+app.post('/questiondelete', (req, res) => {
+	models.question.findAll({where : {question_text : req.body.question_text}}).then(function(data) {
+	question = data[0];
+	if (question){	
+	return question.destroy();
+	}}).then( (created) => {
+		res.status(200).json({
+		});
+});
+});
+
+app.post('/lessondelete', (req, res) => {
+	models.lesson.findAll({where : {name : req.body.name}}).then(function(data) {
+	lesson = data[0];
+	if (lesson){	
+	return lesson.destroy();
+	}}).then( (created) => {
+		res.status(200).json({
+		});
+});
+});
+
+app.post('/moduledelete', (req, res) => {
+	models.module.findAll({where : {name : req.body.name}}).then(function(data) {
+	module = data[0];
+	if (module){	
+	return module.destroy();
+	}}).then( (created) => {
+		res.status(200).json({
+		});
+});
+});
+
+app.post('/userdelete', (req, res) => {
+	models.user.findAll({where : {name : req.body.name}}).then(function(data) {
+	user = data[0];
+	if (user){	
+	return user.destroy();
+	}}).then( (created) => {
+		res.status(200).json({
+		});
+});
+});
 
 
 module.exports = app;

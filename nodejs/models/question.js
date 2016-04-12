@@ -12,7 +12,7 @@ module.exports = function(sequelize, datatypes) {
 }, {
         classMethods: {
             associate: function(models) {
-				question.belongsTo(models.lesson);
+				//question.belongsTo(models.lesson);
             }
         }
     });

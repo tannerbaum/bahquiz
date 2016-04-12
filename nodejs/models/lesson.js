@@ -11,7 +11,8 @@ module.exports = function(sequelize, datatypes) {
 }, {
         classMethods: {
             associate: function(models) {
-				lesson.belongsTo(models.module);
+				//onDelete : "Cascade",
+				//lesson.belongsTo(models.module);
             }
         }
     });
