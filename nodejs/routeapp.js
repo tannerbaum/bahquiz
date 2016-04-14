@@ -74,7 +74,6 @@ app.get('/score', (req,res) => {
 	});
 });
 //Begin Posts
-//Overwrites Duplicate entries; functions as an update
 app.post('/lesson', (req, res) => {
 	models.lesson.findAll({where : {name : req.body.name}}).then(function(data) {
 	lesson = data[0];
@@ -106,7 +105,6 @@ app.post('/lesson', (req, res) => {
 	});
 	}});
 });
-//Overwrites Duplicate entries; functions as an update
 app.post('/module', (req, res) => {
 	models.module.findAll({where : {name : req.body.name}}).then(function(data) {
 	module = data[0];
@@ -143,7 +141,7 @@ app.post('/user', (req, res) => {
 		});
 	});
 });
-//Adds posted score to the ascociated user's lifetime totalscore
+
 app.post('/score', (req, res) => {
 	models.user.findAll({where : { name : req.body.user_name}}).then(function(data) {
 	user = data[0];
@@ -160,7 +158,7 @@ app.post('/score', (req, res) => {
 	});
 	});
 });
-//Overwrites Duplicate entries; functions as an update
+
 app.post('/question', (req, res) => {
 	models.question.findAll({where : {question_text : req.body.question_text}}).then(function(data) {
 	question = data[0];
