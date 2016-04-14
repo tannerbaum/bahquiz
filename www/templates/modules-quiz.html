@@ -14,7 +14,7 @@
         </button>
         
     </div>
-    <div class="quiz-view" ng-show="inProgress">
+    <!--<div class="quiz-view" ng-show="inProgress">
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
              <div class="list list-inset">
@@ -26,7 +26,7 @@
             Next Question
             </button>
         </div>
-    </div>
+    </div>-->
     
     
     <!--Fix this-->
@@ -42,6 +42,23 @@
             </button>
         </div>
     </div>-->
+    
+    <div class="quiz-view" ng-show="inProgress">
+        <div ng-show="!finished">
+            <h4> {{ question }} </h4> 
+            <label data-ng-repeat="ans in answers">
+                <input
+                    name="selection"
+                    type="radio"
+                    value="{{ans}}"
+                    ng-model="$parent.selection" />
+                    {{ans}}
+        </label>
+        <button class="button button-block button-positive" ng-click="checkAnswer({{selected}})">
+            Next Question
+        </button>
+        </div>
+    </div>
         
     <div ng-show="finished">
         <h3> Quiz is Over </h3>

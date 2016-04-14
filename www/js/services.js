@@ -32,8 +32,10 @@ app.factory('modFact', ['$http', function($http){
 app.factory('userFactory', ['$http', function($http){
     var userFactory = {};
     var username;
+    var password; //not secure I know
     var score;
     var loggedIn;
+    var message;
     
     userFactory.getList = function() {
         return $http.get('http://localhost:3000/user');
@@ -46,17 +48,21 @@ app.factory('userFactory', ['$http', function($http){
                 totalscore: 0         
             };
 
+        username = name;
+        password = password;
+        
         var res = $http.post("http://localhost:3000/user", data);
             res.success(function(data, status, headers, config) {
-                $scope.message = data;
+                message = data;
             });
             res.error(function(data, status, headers, config){
                 alert( "failure message: " + JSON.stringify({data: data}));
             })
     }
     
-    userFactory.setUser = function(name, savedScore) {
+    userFactory.setUser = function(name,pass, savedScore) {
         username = name;
+        password = pass;
         score = savedScore;
         loggedIn = true;
     }
@@ -77,11 +83,23 @@ app.factory('userFactory', ['$http', function($http){
         return loggedIn;
     }
     
-    userFactory.addPoints = function(points){
-        //function to add points (with scoreFactory)
-        score = score + points;
-        //post request to update score
-    }
+    // userFactory.addPoints = function(points){
+        
+    //     //function to add points (with scoreFactory)
+    //     score = score + points;
+    //     var data = {   
+    //             name: username,
+    //             pass: password,
+    //             totalscore: score         
+    //         };
+    //     var res = $http.put("http://localhost:3000/user", data);
+    //         res.success(function(data, status, headers, config) {
+    //             message = data;
+    //         });
+    //         res.error(function(data, status, headers, config){
+    //             alert( "failure message: " + JSON.stringify({data: data}));
+    //         })
+    // }
     
     return userFactory;
 }]);
@@ -103,14 +121,15 @@ app.factory('quizIndexFactory', [function(){
 
 app.factory('lessonFact', ['$http', function($http){
     var lessonFact = {};
-    var get;
     
     lessonFact.getList = function() { // add ID function for group of lessons
         return $http.get('http://localhost:3000/lesson');
     };
     
     lessonFact.getLesson = function(id){ // add ID functino for specific lesson
-        return $http.get('http://localhost:3000/lesson'); 
+        var getUrl = 'http://localhost:3000/lesson?id=';
+        getUrl = getUrl + id;
+        return $http.get(getUrl); 
     };
     
     
@@ -119,7 +138,7 @@ app.factory('lessonFact', ['$http', function($http){
 
 app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
     var scoreFact = {};
-    
+    var message;
     scoreFact.getList = function() { 
         return $http.get('http://localhost:3000/score'); // this will be specific call to users
     };
@@ -134,7 +153,7 @@ app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
         // console.log(data);
         var res = $http.post("http://localhost:3000/score", data);
             res.success(function(data, status, headers, config) {
-                $scope.message = data;
+                message = data;
             });
             res.error(function(data, status, headers, config){
                 alert( "failure message: " + JSON.stringify({data: data}));

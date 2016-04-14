@@ -8,14 +8,15 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
     $scope.status;
     $scope.videoLink;
     $scope.lesson;
+    $scope.lessonIndex;
     $scope.mod;
+    $scope.selection;
     
     getQuestions();
     
     function getQuestions(){
         questionFactory.getById(quizIndex)
             .then(function(quiz){
-                console.log("setting quiz scope");
                 $scope.questionSet = quiz.data.questions;
                 findPlace();
             }, function(error){
@@ -23,16 +24,27 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
             });
     }
     
-    function findPlace(){
-        var temp;
+    function findPlace(){ // LOOK AT THIS METHOD
+        var temp,i;
         $scope.lesson = $scope.questionSet[0].lessonId;
-        lessonFact.findMod($scope.lesson)
+        
+        lessonFact.getLesson($scope.lesson) //change this because right now the ID is doing nothing
             .then(function(response){
-                
                 temp = response.data.lessons;
-                $scope.mod = temp[0].moduleId; // make this the right ID 
+                
+                //Maybe this would be best suited for inside the service
+                for(i = 0; i < temp.length; i++){
+                    if(temp[i].id == $scope.lesson){
+                        $scope.mod = temp[i].moduleId;
+                        $scope.lessonIndex = i;
+                        console.log("does it print?");
+                        console.log($scope.lessonIndex);
+                        break;
+                    }
+                }
+                
                 console.log("scope.mod is");
-                console.log(id);
+                console.log($scope.mod);
                 getVid();
             }, function(error){
                 $scope.status = 'unable to find module in QuizCtrl.js: ' + error.message;
@@ -42,10 +54,13 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
     function getVid(){
         var temp;
         
-        lessonFact.getLesson($scope.lesson)
+        lessonFact.getLesson($scope.lesson) //change this because right now the ID is doing nothing
             .then(function (response) {
                 temp = response.data.lessons;
-                $scope.videoLink = temp[0].lessonvid; //make this right ID 
+                console.log("error here");
+                console.log(temp);
+                console.log($scope.lessonIndex);
+                $scope.videoLink = temp[$scope.lessonIndex].lessonvid;
             }, function (error) {
                 $scope.status = 'unable to load lessons in QuizCtrl.js: ' + error.message;
             });
@@ -74,20 +89,16 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
         } else {
             $scope.finished = true;
             $scope.score = ($scope.score / $scope.questionNum ) * 100;
-            scoreFact.updateScore($scope.mod,$scope.lesson,$scope.score);
+            // scoreFact.updateScore($scope.mod,$scope.lesson,$scope.score);
             userFactory.addPoints($scope.score); // is this working?
         }
         
     }
     
     $scope.checkAnswer = function(test){
-        // console.log(test);
+        console.log($scope.selection);
         
-        var ele = document.getElementsByClassName("active");
-        var ans = angular.element(ele).attr('value');
-        console.log ("ans is " + ans);
-        
-        if(ans == $scope.choices[$scope.answer]){ 
+        if($scope.selection == $scope.answers[$scope.answer]){ 
             console.log("correct");
             $scope.score++;
             $scope.correctAns = true;
@@ -97,8 +108,6 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
         }
         
         $scope.questionNum++; 
-        angular.element(ele).removeClass('active');
-        
         $scope.nextQuestion();
     }
     
