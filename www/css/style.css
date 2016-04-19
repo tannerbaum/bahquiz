@@ -31,7 +31,7 @@ img.logo{
     background-repeat: repeat;
 }
 
-h4{
+h4,h3,h2{
     color: #0a9dc7;
 }
 
@@ -71,11 +71,16 @@ h4{
     margin: auto;
 }
 
-/*.badge{
+.gameBadge{
     margin: auto;
     display: block;
-}*/
+}
 
 .center-text{
     text-align: center;
+}
+
+.bottom{
+    position:absolute;
+    bottom:0;
 }

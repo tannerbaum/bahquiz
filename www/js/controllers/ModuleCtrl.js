@@ -1,22 +1,17 @@
-app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory', '$http', function($scope, modFact, quizIndexFactory, $http){
-    $scope.modules = [
-    {
-        mod_avatar: '../img/ionic.png',
-        title: 'Fire Skills 101',
-        quiz_num: '4 quizzes',
-        mod_image: '../img/fire.jpg',
-        mod_body: 'In this lesson, you will learn how to survive in the wilderness with proper fire skills.'
-    }];
-    
-    // moduleFactory.success(function(data) {
-    //    console.log("module factory success");
-    //    $scope.moduleSet = data.modules;  
-    // });
+app.controller('ModulesCtrl', ['$scope','modFact','quizIndexFactory','userFactory', '$http', function($scope, modFact, quizIndexFactory, userFactory, $http){
     $scope.moduleSet;
     $scope.status;
     
     getModules();
-     
+    checkLogin();
+      
+    function checkLogin(){
+        var status = userFactory.getLoggedIn();
+        if(status == true){
+            $scope.loggedIn = true;
+        }
+    }
+      
     function getModules(){
         modFact.getList()
             .then(function (response) {

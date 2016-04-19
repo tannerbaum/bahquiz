@@ -1,6 +1,12 @@
-<ion-view view-title="Modules">
+<ion-view view-title="Modules" cache-view="false">
   <ion-content class="padding">
-    <h4>Modules</h2>
+    <div ng-show="!loggedIn">
+        <h3> You must log in first </h3> 
+    </div>
+    
+    
+    <div ng-show="loggedIn">
+    <h4>Modules</h4>
     <br> <!-- Replace this with padding later -->
     <div ng-repeat="module in moduleSet">
         <div class="list card" value="{{module.id}}">
@@ -8,7 +14,7 @@
             <!--<a href= "#/tab/modules/{{$index}}"> -->
             <a href= "#/tab/modules/lessons" ng-click="openQuiz({{ module.id }})">  
             <div class="item item-avatar">
-                <img src="{{ module.mod_avatar }}">    
+                <img src="http://i.imgur.com/IfRASdF.png">    
                 <h2>{{ module.name }}</h2>
                 <p> 1 quiz </p>
             </div>
@@ -19,6 +25,7 @@
             </div>
             </a>
         </div>
-    </div>                 
+    </div>
+    </div>
   </ion-content>
 </ion-view>

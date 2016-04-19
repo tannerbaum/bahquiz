@@ -9,9 +9,10 @@
         <br>
         <iframe width="100%" height="215" src="{{videoLink | trusted}}" frameborder="0" allowfullscreen></iframe>
         <br>
-        <button id="startQuiz" class="button button-block button-positive" ng-click="start()">
-            Ready?
+        <button id="startQuiz" class="button button-block button-positive" ng-click="start()" ng-show="first">
+            Begin Quiz?
         </button>
+        <h4 ng-show="!first">No repeat quizzes<h4>
         
     </div>
     <!--<div class="quiz-view" ng-show="inProgress">
@@ -43,7 +44,7 @@
         </div>
     </div>-->
     
-    <div class="quiz-view" ng-show="inProgress">
+    <!--<div class="quiz-view" ng-show="inProgress">
         <div ng-show="!finished">
             <h4> {{ question }} </h4> 
             <label data-ng-repeat="ans in answers">
@@ -55,6 +56,18 @@
                     {{ans}}
         </label>
         <button class="button button-block button-positive" ng-click="checkAnswer({{selected}})">
+            Next Question
+        </button>
+        </div>
+    </div>-->
+    
+    <div class="quiz-view" ng-show="inProgress">
+        <div ng-show="!finished">
+        <h4> {{ question }} </h4> 
+        <ion-list>
+            <ion-radio ng-model="$parent.selection" ng-repeat="ans in answers" value="{{ans}}" type="radio" name="selection"> {{ans}}</ion-radio>
+        </ion-list>
+        <button class="button button-block button-positive bottom" ng-click="checkAnswer({{selected}})">
             Next Question
         </button>
         </div>

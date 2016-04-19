@@ -1,14 +1,14 @@
-<ion-view view-title="Lessons">
+<ion-view view-title="Lessons" cache-view="false">
   <ion-content class="padding" ng-controller="LessonsCtrl">
     <h4>Lessons</h2>
     <br> <!-- Replace this with padding later -->
     <div ng-repeat="lesson in lessonSet">
-        <div class="list card" value="{{(lesson.id) - 1 }}">
+        <div class="list card lessonCard" value="{{(lesson.id) - 1 }}">
             <!--this might not work without being under the ng-repeat directly-->
             <!--<a href= "#/tab/modules/{{$index}}"> -->
             <a href= "#/tab/modules/lessons/quiz" ng-click="openQuiz({{ lesson.id }})">  
             <div class="item item-avatar">
-                <img src="{{ lesson.mod_avatar }}">    
+                <img src="http://i.imgur.com/IfRASdF.png">    
                 <h2>{{ lesson.name }}</h2>
             </div>
 
@@ -17,8 +17,9 @@
                 <p> {{ lesson.description }} </p>
             </div>
             
-            <div class="item">
-                Score: {{ scoreArray[(lesson.id - 1)] }}
+            <!--<div class="item" ng-hide="{{ scoreArray[(lesson.id - 1)] }} == -1">-->
+            <div class="item scoreDisplay">
+                Score: <span>{{ scoreArray[(lesson.id - 1)] }}</span>%
             </div>   
             <!--Incorporate completion here-->
             </a>

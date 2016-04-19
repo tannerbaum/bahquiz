@@ -4,19 +4,28 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     $scope.password;
     $scope.users;
     $scope.scores;
-    $scope.userScore; //will later use as percentage
+    $scope.userScore = 0; //will later use as percentage
     $scope.userLevel;
-    
+    $scope.userIndex;
+    $scope.userpercent;
+    $scope.first = false;
     
     getUsers();
-    // getScores();
     
     if(userFactory.getLoggedIn == false){ // this needs to be a constant check  
         $scope.signedIn = false;
     }
+    
+    $scope.$on("$ionicView.enter", function() {
+        console.log("bingo");
+        getUsers();        
+        $timeout(function() {
+            updateBar();
+        }, 500);
+    });
 
     $scope.register = function(){
-        var i;
+        var i = 0;
         var registered;
         
         $scope.username = document.getElementById("username").value;
@@ -31,13 +40,32 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             i++;
         }
         
+        $scope.first = true;
+        $scope.userIndex = i;
+        console.log($scope.userIndex);
+        
         if(registered != true){
-            userFactory.register($scope.username, $scope.password);
             $scope.signedIn = true;
-            $scope.userScore = $scope.users[i].totalscore;
+            userFactory.register($scope.username, $scope.password);
+            $scope.userScore = 0;
             updateBar();
         }
     }
+    
+    // $scope.refresh = function(){
+    //     var i = 0;
+    //     // getUsers(); //is this useful
+    //     console.log("before update" + $scope.userIndex);
+    //     while(i < $scope.users.length){
+    //         if($scope.username == $scope.users[i].name){
+    //                 $scope.userIndex = i; //look at this
+    //                 console.log("after update" + $scope.userIndex);
+    //                 break;
+    //         }
+    //         i++;
+    //     }
+    //     updateBar();
+    // }
     
     $scope.authenticate = function(){
         var i = 0;
@@ -55,7 +83,9 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
                     console.log("user match");
                     $scope.signedIn = true;
                     // score = $scope.users[i].totalscore;
-                    $scope.userScore = $scope.users[i].totalscore;
+                    $scope.userIndex = i; //look at this
+                    console.log($scope.userIndex);
+                    $scope.userScore = $scope.users[$scope.userIndex].totalscore;
                     updateBar();
                     userFactory.setUser($scope.username,$scope.password,$scope.userScore);
                     break;
@@ -66,82 +96,64 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         if($scope.signedIn != true){
             //somehow display the username is incorrect
             alert("Wrong username or Password");
-        }  
+        }else{
+            $scope.first = false;
+        }
     }
 
     function updateBar() {
         var elem = document.getElementById("progressBar"); 
         var width = 0;
         var interval = setInterval(frame, 10);
+        var score;
         
-        var score = $scope.userScore;
-        
-        if(score >= 1400){ //could replace with constants
-            $scope.level = 5;
-            $scope.userscore = score % 1400;
-        }else if(score >= 900){
-            $scope.level = 4;
-            $scope.userscore = score % 900;
-        }else if(score >= 500){
-            $scope.level = 3;
-            $scope.userscore = score % 500;
-        }else if(score >= 200){
-            $scope.level = 2;
-            $scope.userscore = score % 200;
-        }else if(score >= 100){
-            $scope.level = 1;
-            $scope.userscore = score % 100;
+        if($scope.first == true){
+            score = 0;
+            $scope.first = false;
         }else{
-            $scope.level = 0;
-            $scope.userscore = score;
+            score = $scope.users[$scope.userIndex].totalscore;
+            
+            if(score >= 1400){ //could replace with constants
+                $scope.level = 5;
+                $scope.userpercent = score % 1400;
+            }else if(score >= 900){
+                $scope.level = 4;
+                $scope.userpercent = score % 900;
+            }else if(score >= 500){
+                $scope.level = 3;
+                $scope.userpercent = score % 500;
+            }else if(score >= 200){
+                $scope.level = 2;
+                $scope.userpercent = score % 200;
+            }else if(score >= 100){
+                $scope.level = 1;
+                $scope.userpercent = score % 100;
+            }else{
+                $scope.level = 0;
+                $scope.userpercent = score;
+            }
+            
+            function frame() {
+                if (width >= $scope.userpercent) { // this will be user progress number
+                    clearInterval(interval);
+                } else {
+                    width++; 
+                    elem.style.width = width + '%'; 
+                    document.getElementById("label").innerHTML = width * 1 + '%';
+                }
+            }            
+            
         }
         
-        function frame() {
-            if (width >= $scope.userscore) { // this will be user progress number
-                clearInterval(interval);
-            } else {
-                width++; 
-                elem.style.width = width + '%'; 
-                document.getElementById("label").innerHTML = width * 1 + '%';
-            }
-        }
+
     }
  
     function getUsers(){
         userFactory.getList()
             .then(function (response) {
                 $scope.users = response.data.users;
-                console.log($scope.users[0]);
-                
-                // return response.data.users;
-                // $scope.$apply(function(){
-                //     $scope.users = response.data.users;
-                // })
-                // $timeout(function(){
-                // $scope.users = response.data.users;
-                // })
-                // console.log($scope.users[0]);
             }, function (error) {
                 $scope.status = 'unable to load users in controller: ' + error.message;
             });
     }
-    
-    // function getScores(){
-    //     scoreFactory.getList()
-    //         .then(function (response) {
-    //             var data = response.data.users;
-                
-                
-    //             // return response.data.users;
-    //             // $scope.$apply(function(){
-    //             //     $scope.users = response.data.users;
-    //             // })
-    //             // $timeout(function(){
-    //             // $scope.users = response.data.users;
-    //             // })
-    //             // console.log($scope.users[0]);
-    //         }, function (error) {
-    //             $scope.status = 'unable to load users in controller: ' + error.message;
-    //         });
-    // }
 }])

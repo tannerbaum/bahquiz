@@ -1,17 +1,21 @@
 app.factory('questionFactory', ['$http', function($http){
     function getById(id) {
-        console.log("inside getbyID");
-        // var requestUrl = 'http://localhost:3000/quiz/' + id;
-        var requestUrl = 'http://localhost:3000/question';
-        return $http.get(requestUrl)
-        .success(function(data){
-            console.log("success");
-            return data;
-        })
-        .error(function(err) {
-            console.log("fail");
-            return err;
-        });
+        // console.log("inside getbyID");
+        // // var requestUrl = 'http://localhost:3000/quiz/' + id;
+        // var requestUrl = 'http://localhost:3000/question';
+        // return $http.get(requestUrl)
+        // .success(function(data){
+        //     console.log("success");
+        //     return data;
+        // })
+        // .error(function(err) {
+        //     console.log("fail");
+        //     return err;
+        // });
+        
+        var getUrl = 'http://localhost:3000/question?lessonId=';
+        getUrl = getUrl + id;
+        return $http.get(getUrl); 
     }
     
     return {
@@ -50,10 +54,14 @@ app.factory('userFactory', ['$http', function($http){
 
         username = name;
         password = password;
+        score = 0; //missing this line is probably what caused your headaches
+        loggedIn = true;
+        console.log("logged In");
         
         var res = $http.post("http://localhost:3000/user", data);
             res.success(function(data, status, headers, config) {
                 message = data;
+                // return message; // There has to be a better way to send a response
             });
             res.error(function(data, status, headers, config){
                 alert( "failure message: " + JSON.stringify({data: data}));
@@ -106,7 +114,8 @@ app.factory('userFactory', ['$http', function($http){
 
 app.factory('quizIndexFactory', [function(){
     var data = {
-        quizIndex: 0
+        quizIndex: 0,
+        first: 1
     };
     console.log("inside quizindexfactory");
     return{
@@ -115,6 +124,12 @@ app.factory('quizIndexFactory', [function(){
         },
         setQuizIndex: function(number){
             data.quizIndex = number;
+        },
+        stopUser: function(){
+            data.first = 0;
+        },
+        checkUser:function(){
+            return data.first;
         }
     };
 }]);
@@ -139,18 +154,20 @@ app.factory('lessonFact', ['$http', function($http){
 app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
     var scoreFact = {};
     var message;
+    var userPost = userFactory.getUser();
     scoreFact.getList = function() { 
         return $http.get('http://localhost:3000/score'); // this will be specific call to users
     };
     
     scoreFact.updateScore = function(mod, less, value){
         var data = {   
-            user_name: userFactory.getUser,
+            user_name: userPost,
             module_id: mod,
             lesson_id: less, 
             score: value       
         };
-        // console.log(data);
+        console.log("post data = ");
+        console.log(data);
         var res = $http.post("http://localhost:3000/score", data);
             res.success(function(data, status, headers, config) {
                 message = data;
