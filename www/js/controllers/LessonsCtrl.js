@@ -1,23 +1,59 @@
-app.controller('LessonsCtrl', ['$scope','lessonFact','scoreFact','quizIndexFactory','userFactory','$http', function($scope, lessonFact,scoreFact, quizIndexFactory, userFactory, $http){
+app.controller('LessonsCtrl', ['$scope','lessonFact','scoreFact','quizIndexFactory','userFactory','$http','$q', function($scope, lessonFact,scoreFact, quizIndexFactory, userFactory, $http, $q){
     
     $scope.lessonSet;
     $scope.scoreSet;
     // $scope.moduleSet;
     $scope.status;
     $scope.scoreArray
+    $scope.modID; 
+    $scope.filteredLessons = [];
     
     getLessons();
     // getScores();
     // getModules();
     
+    
     function getLessons(){
         lessonFact.getList()
             .then(function (response) {
-                $scope.lessonSet = response.data.lessons;        
-                getScores();
+                $scope.lessonSet = response.data.lessons;   
+                // $scope.modID = quizIndexFactory.getModule();
+                var modID = quizIndexFactory.getModule();
+                
+                var promise = asyncFilter(modID);
+                promise.then(function(newList){
+                    $scope.lessonSet = newList;
+                },function(failure){
+                    console.log(failure);
+                }); 
+                 
+                getScores();//probably need to move this?
             }, function (error) {
                 $scope.status = 'unable to load lessons in controller: ' + error.message;
             });
+    }
+    
+    function asyncFilter(id){
+        return $q(function(resolve,reject){
+            setTimeout(function(){
+                if(filter(id)){
+                    resolve($scope.filteredLessons);
+                } else {
+                    reject("I don't know man");
+                }
+            }, 1000);
+        });
+    }
+    
+    function filter(id){
+        var i;
+        for(i = 0; i < $scope.lessonSet.length; i++){
+            if($scope.lessonSet[i].moduleId == id){
+                $scope.filteredLessons.push($scope.lessonSet[i]);
+            }
+        }
+        
+        return true;        
     }
     
     function getScores(){

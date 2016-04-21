@@ -115,6 +115,7 @@ app.factory('userFactory', ['$http', function($http){
 app.factory('quizIndexFactory', [function(){
     var data = {
         quizIndex: 0,
+        moduleId: 0,
         first: 1
     };
     console.log("inside quizindexfactory");
@@ -130,12 +131,19 @@ app.factory('quizIndexFactory', [function(){
         },
         checkUser:function(){
             return data.first;
+        },
+        setModule: function(id){
+            data.moduleId = id;
+        },
+        getModule: function(){
+            return data.moduleId;
         }
     };
 }]);
 
 app.factory('lessonFact', ['$http', function($http){
     var lessonFact = {};
+    var moduleId;
     
     lessonFact.getList = function() { // add ID function for group of lessons
         return $http.get('http://localhost:3000/lesson');
@@ -147,6 +155,9 @@ app.factory('lessonFact', ['$http', function($http){
         return $http.get(getUrl); 
     };
     
+    lessonFact.filter = function(lessons){
+        
+    }
     
     return lessonFact;
 }]);

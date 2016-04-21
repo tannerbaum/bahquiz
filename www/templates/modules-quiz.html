@@ -15,51 +15,6 @@
         <h4 ng-show="!first">No repeat quizzes<h4>
         
     </div>
-    <!--<div class="quiz-view" ng-show="inProgress">
-        <div ng-show="!finished">
-            <h4> {{ question }} </h4> 
-             <div class="list list-inset">
-                <div class="item" ng-repeat="choice in choices" ng-class="{active:($this.selected == $index)}" ng-click="$this.selected = $index;" value="{{choice}}">
-                {{ choice }}
-                </div>
-            </div>
-            <button class="button button-block button-positive" ng-click="checkAnswer()">
-            Next Question
-            </button>
-        </div>
-    </div>-->
-    
-    
-    <!--Fix this-->
-    <!--<div class="quiz-view" ng-show="inProgress">
-        <div ng-show="!finished">
-            <h4> {{ question }} </h4> 
-             <div class="list list-inset">
-                <ion-list>
-                    <ion-radio ng-repeat="ans in answers" ng-model="$parent.selected" ng-value="{{ ans }}">{{ ans }}</ion-radio>
-                </ion-list>
-            <button class="button button-block button-positive" ng-click="checkAnswer({{selected}})">
-            Next Question
-            </button>
-        </div>
-    </div>-->
-    
-    <!--<div class="quiz-view" ng-show="inProgress">
-        <div ng-show="!finished">
-            <h4> {{ question }} </h4> 
-            <label data-ng-repeat="ans in answers">
-                <input
-                    name="selection"
-                    type="radio"
-                    value="{{ans}}"
-                    ng-model="$parent.selection" />
-                    {{ans}}
-        </label>
-        <button class="button button-block button-positive" ng-click="checkAnswer({{selected}})">
-            Next Question
-        </button>
-        </div>
-    </div>-->
     
     <div class="quiz-view" ng-show="inProgress">
         <div ng-show="!finished">
@@ -79,8 +34,6 @@
         <br>
         <br>
         <h4> You finished with {{ score }}% correct</h4>
-        <!--TODO: Button here that resets you to module page? -->
-        <!--ng-class="{active:($parent.selected == $index)}"-->
     </div> 
 </ion-content>
 </ion-view>

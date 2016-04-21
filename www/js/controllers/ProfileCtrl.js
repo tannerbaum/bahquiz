@@ -7,7 +7,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     $scope.userScore = 0; //will later use as percentage
     $scope.userLevel;
     $scope.userIndex;
-    $scope.userpercent;
+    $scope.userpercent = 0;
     $scope.first = false;
     
     getUsers();
@@ -18,6 +18,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     
     $scope.$on("$ionicView.enter", function() {
         console.log("bingo");
+        // $scope.first = false;
         getUsers();        
         $timeout(function() {
             updateBar();
@@ -107,12 +108,16 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         var interval = setInterval(frame, 10);
         var score;
         
+        // alert($scope.first);
+        //supposed to be true
+        
         if($scope.first == true){
+            console.log("first");
             score = 0;
             $scope.first = false;
         }else{
             score = $scope.users[$scope.userIndex].totalscore;
-            
+            console.log("second, score: " + score );
             if(score >= 1400){ //could replace with constants
                 $scope.level = 5;
                 $scope.userpercent = score % 1400;
@@ -131,9 +136,11 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             }else{
                 $scope.level = 0;
                 $scope.userpercent = score;
+                console.log("updated");
             }
             
             function frame() {
+                console.log($scope.userpercent);
                 if (width >= $scope.userpercent) { // this will be user progress number
                     clearInterval(interval);
                 } else {
