@@ -2,44 +2,26 @@
   <ion-content class="padding bg">
       <div class="list">
         <div class="item item-divider">
-            App Settings
+            Top 10 Choozers
         </div>
-        <div class="item item-toggle" href="#">
-            Night Mode
-            <label class="toggle toggle-assertive">
-                <input type="checkbox">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-        </div>
-        <div class="item" href="#">
-            Sample
-        </div>
-        <div class="item item-divider">
-            Account Settings
-        </div>
-        <div class="item" href="#">
-            Sample
-        </div>
-        <div class="item" href="#" ng-click="modal.show()">
-            Logout
-        </div>
-
-  ...
-
-</div>
+        <a class="item item-avatar" href="#" ng-repeat="user in topUsers">
+            <img src="{{southpark[$index].link}}">
+            <h2>{{user.name}}</h2>
+            <p>{{user.totalscore}}</p>
+        </a>
+        
+      </div>
   </ion-content>
 </ion-view>
 
-<script id="templates/modal.html" type="text/ng-template">
+<!--<script id="templates/modal.html" type="text/ng-template">
     <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-positive">
         <h1 class="title">Are you sure?</h1>
         <!--<button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>-->
-    </ion-header-bar>
+    <!--</ion-header-bar>
     <ion-content class="padding">
-        <div class="list">
+        <div class="list">-->
         <!--<label class="item item-input">
             <span class="input-label">First Name</span>
             <input ng-model="newUser.firstName" type="text">
@@ -52,8 +34,8 @@
             <span class="input-label">Email</span>
             <input ng-model="newUser.email" type="text">
         </label>-->
-        <button class="button button-full button-positive" ng-click="modal.hide(); confirmLogout();">Yes</button>
+        <!--<button class="button button-full button-positive" ng-click="modal.hide(); confirmLogout();">Yes</button>
         </div>
     </ion-content>
     </ion-modal-view>
-</script>
+</script>-->

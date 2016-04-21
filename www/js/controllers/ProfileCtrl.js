@@ -137,8 +137,10 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
                 $scope.level = 0;
                 $scope.userpercent = score;
                 console.log("updated");
-            }
+            }           
             
+        }
+        
             function frame() {
                 console.log($scope.userpercent);
                 if (width >= $scope.userpercent) { // this will be user progress number
@@ -148,9 +150,7 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
                     elem.style.width = width + '%'; 
                     document.getElementById("label").innerHTML = width * 1 + '%';
                 }
-            }            
-            
-        }
+            } 
         
 
     }
