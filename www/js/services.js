@@ -1,17 +1,5 @@
 app.factory('questionFactory', ['$http', function($http){
     function getById(id) {
-        // console.log("inside getbyID");
-        // // var requestUrl = 'http://localhost:3000/quiz/' + id;
-        // var requestUrl = 'http://localhost:3000/question';
-        // return $http.get(requestUrl)
-        // .success(function(data){
-        //     console.log("success");
-        //     return data;
-        // })
-        // .error(function(err) {
-        //     console.log("fail");
-        //     return err;
-        // });
         
         var getUrl = 'http://localhost:3000/question?lessonId=';
         getUrl = getUrl + id;
@@ -26,7 +14,7 @@ app.factory('questionFactory', ['$http', function($http){
 app.factory('modFact', ['$http', function($http){
     var modFact = {};
     
-    modFact.getList = function() { //do an experiment later to see which modfact this is 
+    modFact.getList = function() {
         return $http.get('http://localhost:3000/module');
     };
     
@@ -54,9 +42,8 @@ app.factory('userFactory', ['$http', function($http){
 
         username = name;
         password = password;
-        score = 0; //missing this line is probably what caused your headaches
+        score = 0;
         loggedIn = true;
-        console.log("logged In");
         
         var res = $http.post("http://localhost:3000/user", data);
             res.success(function(data, status, headers, config) {
@@ -84,30 +71,11 @@ app.factory('userFactory', ['$http', function($http){
     userFactory.logoutUser = function(){
         username = null;
         loggedIn = false;
-        console.log("halfway there");
     }
     
     userFactory.getLoggedIn = function(){
         return loggedIn;
     }
-    
-    // userFactory.addPoints = function(points){
-        
-    //     //function to add points (with scoreFactory)
-    //     score = score + points;
-    //     var data = {   
-    //             name: username,
-    //             pass: password,
-    //             totalscore: score         
-    //         };
-    //     var res = $http.put("http://localhost:3000/user", data);
-    //         res.success(function(data, status, headers, config) {
-    //             message = data;
-    //         });
-    //         res.error(function(data, status, headers, config){
-    //             alert( "failure message: " + JSON.stringify({data: data}));
-    //         })
-    // }
     
     return userFactory;
 }]);
@@ -118,7 +86,6 @@ app.factory('quizIndexFactory', [function(){
         moduleId: 0,
         first: 1
     };
-    console.log("inside quizindexfactory");
     return{
         getQuizIndex: function(){
             return data.quizIndex;
@@ -143,13 +110,12 @@ app.factory('quizIndexFactory', [function(){
 
 app.factory('lessonFact', ['$http', function($http){
     var lessonFact = {};
-    var moduleId;
     
-    lessonFact.getList = function() { // add ID function for group of lessons
+    lessonFact.getList = function() {
         return $http.get('http://localhost:3000/lesson');
     };
     
-    lessonFact.getLesson = function(id){ // add ID functino for specific lesson
+    lessonFact.getLesson = function(id){
         var getUrl = 'http://localhost:3000/lesson?id=';
         getUrl = getUrl + id;
         return $http.get(getUrl); 
@@ -167,7 +133,7 @@ app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
     var message;
     var userPost = userFactory.getUser();
     scoreFact.getList = function() { 
-        return $http.get('http://localhost:3000/score'); // this will be specific call to users
+        return $http.get('http://localhost:3000/score');
     };
     
     scoreFact.updateScore = function(mod, less, value){
@@ -177,8 +143,7 @@ app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
             lesson_id: less, 
             score: value       
         };
-        console.log("post data = ");
-        console.log(data);
+
         var res = $http.post("http://localhost:3000/score", data);
             res.success(function(data, status, headers, config) {
                 message = data;
@@ -187,7 +152,6 @@ app.factory('scoreFact', ['$http','userFactory', function($http,userFactory){
                 alert( "failure message: " + JSON.stringify({data: data}));
             })
     }
-    //total score function here
     
     return scoreFact;
 }]);

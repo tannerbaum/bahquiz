@@ -80,7 +80,26 @@ h4,h3,h2{
     text-align: center;
 }
 
+.verticalCenter{
+    display: flex;
+    align-items: center;
+}
+
 .bottom{
     position:absolute;
     bottom:0;
+}
+
+.scoreOutput{
+    padding: 45px;
+    text-align: center;
+}
+
+#results{
+    font-size: 25px;
+}
+
+.modulebar{
+    /*background-color: lightgreen;*/
+    /*text-align: center;*/
 }

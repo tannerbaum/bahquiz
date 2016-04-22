@@ -1,8 +1,5 @@
-<!--This probably needs to be moved into question-dir.html-->
-<!--I imagine that to make it so clicking on a module brings up different quizzes, this needs to be in the directive-->
-
 <ion-view view-title="Quiz"> 
-  <ion-content class="padding" ng-controller="QuizCtrl">
+  <ion-content class="padding bg" ng-controller="QuizCtrl">
     <div class="intro" ng-show="!inProgress">
         <br>
         <br>
@@ -29,11 +26,18 @@
     </div>
         
     <div ng-show="finished">
-        <h3> Quiz is Over </h3>
         <br>
         <br>
         <br>
-        <h4> You finished with {{ score }}% correct</h4>
+        <div class="card">
+            <div class="item item-divider">
+                All Done!
+            </div>
+            <div class="item item-text-wrap scoreOutput">
+                <h3 id="results"> You finished with {{ score }}% correct!</h3>
+            </div>
+        </div>
+        
     </div> 
 </ion-content>
 </ion-view>

@@ -67,15 +67,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    // .state('tab.quiz', {
-    //   url: '/modules/quiz/:id',
-    //   views: {
-    //     'tab-modules': {
-    //       templateUrl: 'templates/modules-quiz.html',
-    //       controller: 'QuizCtrl'
-    //     }
-    //   }
-    // })  
 
   .state('tab.settings', {
     url: '/settings',
@@ -107,5 +98,3 @@ app.run(function($ionicPlatform) {
     }
   });
 })
-
-//fake comment for commit

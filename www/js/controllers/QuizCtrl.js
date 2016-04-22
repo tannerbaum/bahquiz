@@ -15,9 +15,8 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
     
     if(quizIndexFactory.checkUser() == 1){
         $scope.first = true;
-        quizIndex = quizIndexFactory.getQuizIndex(); // this may have to sit outside of this
+        quizIndex = quizIndexFactory.getQuizIndex();
     }
-    
     
     getQuestions();
     
@@ -25,23 +24,20 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
         questionFactory.getById(quizIndex)
             .then(function(quiz){
                 $scope.questionSet = quiz.data.questions;
-                console.log("check here");
-                console.log($scope.questionSet);
                 findPlace();
             }, function(error){
                 $scope.status = 'unable to load modules in QuizCtrl.js: ' + error.message;
             });
     }
     
-    function findPlace(){ // LOOK AT THIS METHOD
+    function findPlace(){
         var temp,i;
         $scope.lesson = $scope.questionSet[0].lessonId;
         
-        lessonFact.getLesson($scope.lesson) //change this because right now the ID is doing nothing
+        lessonFact.getLesson($scope.lesson) 
             .then(function(response){
                 temp = response.data.lessons;
-                
-                //Maybe this would be best suited for inside the service
+
                 for(i = 0; i < temp.length; i++){
                     if(temp[i].id == $scope.lesson){
                         $scope.mod = temp[i].moduleId;
@@ -59,7 +55,7 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
     function getVid(){
         var temp;
         
-        lessonFact.getLesson($scope.lesson) //change this because right now the ID is doing nothing
+        lessonFact.getLesson($scope.lesson) 
             .then(function (response) {
                 temp = response.data.lessons;
                 $scope.videoLink = temp[$scope.lessonIndex].lessonvid;
@@ -86,14 +82,22 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
 
         if(question){
             $scope.question = question.question_text;
-            $scope.answers = [question.a,question.b,question.c,question.d]; // can later make a for loop to add if it isn't NULL for true/false
+            $scope.answers = [question.a,question.b,question.c,question.d];
             $scope.answer = question.answer; 
         } else {
             $scope.finished = true;
             $scope.score = ($scope.score / $scope.questionNum ) * 100;
+            
+            var results = document.getElementById('results');
+            if($scope.score >= 75){
+                results.className += " balanced";
+            }else if($scope.score >= 50 && $scope.score <75){
+                results.className += " energized";
+            }else{
+                results.className += " assertive";
+            }
+            
             scoreFact.updateScore($scope.mod,$scope.lesson,$scope.score);
-            console.log($scope.mod + " and " + $scope.lesson + " and " + $scope.score)
-            // userFactory.addPoints($scope.score); // now done automatically on the server
         }
         
     }
@@ -118,7 +122,6 @@ app.controller('QuizCtrl', ['$scope', 'questionFactory', 'quizIndexFactory','les
     
     $scope.setSelected = function(idSelected){
         $scope.idSelected = idSelected;
-        console.log("selected is " + idSelected);
     }
     
     $scope.reset();

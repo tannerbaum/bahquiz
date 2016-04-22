@@ -1,17 +1,16 @@
 <ion-view view-title="Modules" cache-view="false">
-  <ion-content class="padding">
+    <ion-nav-title class="customtitle positive">
+        <div> List of Learning Modules </div>
+    </ion-nav-title>
+  <ion-content class="padding bg">
+    
     <div ng-show="!loggedIn">
-        <h3> You must log in first </h3> 
+        <h3 class="center-text"> You must log in first! </h3> 
     </div>
     
-    
     <div ng-show="loggedIn">
-    <h4>Modules</h4>
-    <br> <!-- Replace this with padding later -->
     <div ng-repeat="module in moduleSet">
         <div class="list card" value="{{module.id}}">
-            <!--this might not work without being under the ng-repeat directly-->
-            <!--<a href= "#/tab/modules/{{$index}}"> -->
             <a href= "#/tab/modules/lessons" ng-click="openLesson({{ module.id }})">  
             <div class="item item-avatar">
                 <img src="http://i.imgur.com/IfRASdF.png">    

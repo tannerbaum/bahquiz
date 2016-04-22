@@ -17,8 +17,6 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
     }
     
     $scope.$on("$ionicView.enter", function() {
-        console.log("bingo");
-        // $scope.first = false;
         getUsers();        
         $timeout(function() {
             updateBar();
@@ -43,7 +41,6 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         
         $scope.first = true;
         $scope.userIndex = i;
-        console.log($scope.userIndex);
         
         if(registered != true){
             $scope.signedIn = true;
@@ -52,21 +49,6 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             updateBar();
         }
     }
-    
-    // $scope.refresh = function(){
-    //     var i = 0;
-    //     // getUsers(); //is this useful
-    //     console.log("before update" + $scope.userIndex);
-    //     while(i < $scope.users.length){
-    //         if($scope.username == $scope.users[i].name){
-    //                 $scope.userIndex = i; //look at this
-    //                 console.log("after update" + $scope.userIndex);
-    //                 break;
-    //         }
-    //         i++;
-    //     }
-    //     updateBar();
-    // }
     
     $scope.authenticate = function(){
         var i = 0;
@@ -83,9 +65,8 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             if($scope.username == $scope.users[i].name && $scope.password == $scope.users[i].pass){
                     console.log("user match");
                     $scope.signedIn = true;
-                    // score = $scope.users[i].totalscore;
-                    $scope.userIndex = i; //look at this
-                    console.log($scope.userIndex);
+                    $scope.userIndex = i; 
+                    
                     $scope.userScore = $scope.users[$scope.userIndex].totalscore;
                     updateBar();
                     userFactory.setUser($scope.username,$scope.password,$scope.userScore);
@@ -95,7 +76,6 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         }
         
         if($scope.signedIn != true){
-            //somehow display the username is incorrect
             alert("Wrong username or Password");
         }else{
             $scope.first = false;
@@ -108,16 +88,11 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
         var interval = setInterval(frame, 10);
         var score;
         
-        // alert($scope.first);
-        //supposed to be true
-        
         if($scope.first == true){
-            console.log("first");
             score = 0;
             $scope.first = false;
         }else{
             score = $scope.users[$scope.userIndex].totalscore;
-            console.log("second, score: " + score );
             if(score >= 1400){ //could replace with constants
                 $scope.level = 5;
                 $scope.userpercent = score % 1400;
@@ -136,14 +111,12 @@ app.controller('ProfileCtrl', ['$scope', '$timeout','userFactory', function($sco
             }else{
                 $scope.level = 0;
                 $scope.userpercent = score;
-                console.log("updated");
             }           
             
         }
         
             function frame() {
-                console.log($scope.userpercent);
-                if (width >= $scope.userpercent) { // this will be user progress number
+                if (width >= $scope.userpercent) {
                     clearInterval(interval);
                 } else {
                     width++; 
